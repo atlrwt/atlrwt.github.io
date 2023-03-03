@@ -4,15 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>归档: 2023/3 | 一期一会</title>
+  <title>macOS ClashX代理端口为0问题 | 一期一会</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="一期一会">
-<meta property="og:url" content="http://example.com/archives/2023/03/index.html">
+  <meta name="description" content="问题背景不小心升级了ClashX，结果升级完成后遇到了托管配置文件格式不正确的问题，重新导入配置文件问题仍未解决，于是选择重装ClashX，然后ClashX就提示“系统代理设置已被另一个进程修改，Clashx不再是默认代理”，进一步研究后发现ClashX的Socks5和HTTP代理端口均为0。 问题描述 ClashX升级后提示“托管配置文件格式不正确” 重装ClashX后提示“系统代理设置已被另一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS ClashX代理端口为0问题">
+<meta property="og:url" content="http://example.com/2023/02/24/ClashX-Proxy-Port-0-Solution/index.html">
 <meta property="og:site_name" content="一期一会">
+<meta property="og:description" content="问题背景不小心升级了ClashX，结果升级完成后遇到了托管配置文件格式不正确的问题，重新导入配置文件问题仍未解决，于是选择重装ClashX，然后ClashX就提示“系统代理设置已被另一个进程修改，Clashx不再是默认代理”，进一步研究后发现ClashX的Socks5和HTTP代理端口均为0。 问题描述 ClashX升级后提示“托管配置文件格式不正确” 重装ClashX后提示“系统代理设置已被另一">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/ClashX-Proxy-Port-0-Solution/ClashX_port.png">
+<meta property="article:published_time" content="2023-02-24T05:58:04.000Z">
+<meta property="article:modified_time" content="2023-03-03T05:51:53.547Z">
 <meta property="article:author" content="atlrwt">
+<meta property="article:tag" content="VPN">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/ClashX-Proxy-Port-0-Solution/ClashX_port.png">
   
     <link rel="alternate" href="/atom.xml" title="一期一会" type="application/atom+xml">
   
@@ -69,58 +76,71 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/03/02/Personal-Blog-From-Scrach-Hexo-X-GitHub/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-03-02T03:18:42.000Z" itemprop="datePublished">3月 2</time>
+        <section id="main"><article id="post-ClashX-Proxy-Port-0-Solution" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/24/ClashX-Proxy-Port-0-Solution/" class="article-date">
+  <time class="dt-published" datetime="2023-02-24T05:58:04.000Z" itemprop="datePublished">2023-02-24</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/03/02/Personal-Blog-From-Scrach-Hexo-X-GitHub/">从零开始的免费个人博客搭建之旅 - Hexo X GitHub</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      macOS ClashX代理端口为0问题
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/03/02/hello-world/" class="archive-article-date">
-  <time class="dt-published" datetime="2023-03-02T03:00:38.556Z" itemprop="datePublished">3月 2</time>
-</a>
+    <div class="e-content article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/03/02/hello-world/">Hello World</a>
-    </h1>
-  
+        <h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>不小心升级了ClashX，结果升级完成后遇到了托管配置文件格式不正确的问题，重新导入配置文件问题仍未解决，于是选择重装ClashX，然后ClashX就提示“系统代理设置已被另一个进程修改，Clashx不再是默认代理”，进一步研究后发现ClashX的Socks5和HTTP代理端口均为0。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><ul>
+<li>ClashX升级后提示“托管配置文件格式不正确”</li>
+<li>重装ClashX后提示“系统代理设置已被另一个进程修改，Clashx不再是默认代理”</li>
+<li>Socks5和HTTP代理端口均为0</li>
+</ul>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>在终端打开<code>.config/clash/config.yaml</code>配置文件，手动添加如下端口信息：</p>
+<pre><code>socks-port: 7891  // socks5代理端口  
+port: 7892        // http代理端口 
+</code></pre>
+<p>保存退出，重启ClashX后问题解决。</p>
+<p><img src="/ClashX-Proxy-Port-0-Solution/ClashX_port.png" alt="image"></p>
+<p>&lt;center&gt;- EOF - &lt;&#x2F;center&gt;</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/24/ClashX-Proxy-Port-0-Solution/" data-id="cles4bx4n00002wnobgi58hit" data-title="macOS ClashX代理端口为0问题" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/" rel="tag">VPN</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/03/02/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 
 </section>
