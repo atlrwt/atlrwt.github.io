@@ -40,28 +40,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="写在前面本文总结了SQL Server进行字符串截取时的常用方法，包括LEFT、RIGHT、SUBSTRING及CHARINDEX函数的使用。">
+    <meta name="description" content="TL-DRLinux的周期性定时任务 $ crontab [-u username] [-l|-e|-r]-u：指定用户（只有root账户才可使用）-e：编辑crontab任务-l：列出所有执行中的crontab任务-r：移除所有的crontab任务  Example of job definition:.---------------- minute (0 - 59)|  .----------">
 <meta property="og:type" content="article">
-<meta property="og:title" content="玩转SQL Server字符串截取">
-<meta property="og:url" content="http://example.com/2024/04/26/SQLServer-String-Manipulating/index.html">
+<meta property="og:title" content="浅析Linux定时任务调度 - crontab">
+<meta property="og:url" content="http://example.com/2025/01/13/A-Brief-Analysis-of-Linux-Scheduled-Task-Scheduling/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="写在前面本文总结了SQL Server进行字符串截取时的常用方法，包括LEFT、RIGHT、SUBSTRING及CHARINDEX函数的使用。">
+<meta property="og:description" content="TL-DRLinux的周期性定时任务 $ crontab [-u username] [-l|-e|-r]-u：指定用户（只有root账户才可使用）-e：编辑crontab任务-l：列出所有执行中的crontab任务-r：移除所有的crontab任务  Example of job definition:.---------------- minute (0 - 59)|  .----------">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-26T12:12:03.000Z">
-<meta property="article:modified_time" content="2024-08-29T11:40:36.000Z">
+<meta property="article:published_time" content="2025-01-13T01:23:55.000Z">
+<meta property="article:modified_time" content="2025-01-23T03:32:42.850Z">
 <meta property="article:author" content="atlrwt">
-<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2024/04/26/SQLServer-String-Manipulating/">
+<link rel="canonical" href="http://example.com/2025/01/13/A-Brief-Analysis-of-Linux-Scheduled-Task-Scheduling/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/04/26/SQLServer-String-Manipulating/","path":"2024/04/26/SQLServer-String-Manipulating/","title":"玩转SQL Server字符串截取"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/01/13/A-Brief-Analysis-of-Linux-Scheduled-Task-Scheduling/","path":"2025/01/13/A-Brief-Analysis-of-Linux-Scheduled-Task-Scheduling/","title":"浅析Linux定时任务调度 - crontab"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>玩转SQL Server字符串截取 | 知行合一</title>
+<title>浅析Linux定时任务调度 - crontab | 知行合一</title>
   
 
 
@@ -134,7 +134,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LEFT%E5%87%BD%E6%95%B0"><span class="nav-text">LEFT函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RIGHT%E5%87%BD%E6%95%B0"><span class="nav-text">RIGHT函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUBSTRING%E5%87%BD%E6%95%B0"><span class="nav-text">SUBSTRING函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6"><span class="nav-text">进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CHARINDEX%E5%87%BD%E6%95%B0"><span class="nav-text">CHARINDEX函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8SUBSTRING%E5%92%8CCHARINDEX%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B2%BE%E7%A1%AE%E6%88%AA%E5%8F%96"><span class="nav-text">利用SUBSTRING和CHARINDEX实现字符串精确截取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REFERENCE"><span class="nav-text">REFERENCE</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TL-DR"><span class="nav-text">TL-DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -189,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/26/SQLServer-String-Manipulating/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/13/A-Brief-Analysis-of-Linux-Scheduled-Task-Scheduling/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -202,12 +202,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="玩转SQL Server字符串截取 | 知行合一">
+      <meta itemprop="name" content="浅析Linux定时任务调度 - crontab | 知行合一">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          玩转SQL Server字符串截取
+          浅析Linux定时任务调度 - crontab
         </h1>
 
         <div class="post-meta-container">
@@ -218,14 +218,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2024-04-26 20:12:03" itemprop="dateCreated datePublished" datetime="2024-04-26T20:12:03+08:00">2024-04-26</time>
+      <time title="创建时间：2025-01-13 09:23:55" itemprop="dateCreated datePublished" datetime="2025-01-13T09:23:55+08:00">2025-01-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-08-29 19:40:36" itemprop="dateModified" datetime="2024-08-29T19:40:36+08:00">2024-08-29</time>
+      <time title="修改时间：2025-01-23 11:32:42" itemprop="dateModified" datetime="2025-01-23T11:32:42+08:00">2025-01-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -233,7 +233,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Data-Analysis/" itemprop="url" rel="index"><span itemprop="name">Data Analysis</span></a>
+          <a href="/categories/Ops/" itemprop="url" rel="index"><span itemprop="name">Ops</span></a>
         </span>
     </span>
 
@@ -247,80 +247,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>本文总结了SQL Server进行字符串截取时的常用方法，包括<code>LEFT</code>、<code>RIGHT</code>、<code>SUBSTRING</code>及<code>CHARINDEX</code>函数的使用。</p>
+        <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL-DR"></a>TL-DR</h2><p>Linux的周期性定时任务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ crontab [-u username] [-l|-e|-r]</span><br><span class="line">-u：指定用户（只有root账户才可使用）</span><br><span class="line">-e：编辑crontab任务</span><br><span class="line">-l：列出所有执行中的crontab任务</span><br><span class="line">-r：移除所有的crontab任务</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Example of job definition:</span><br><span class="line">.---------------- minute (0 - 59)</span><br><span class="line">|  .------------- hour (0 - 23)</span><br><span class="line">|  |  .---------- day of month (1 - 31)</span><br><span class="line">|  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span><br><span class="line">|  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) </span><br><span class="line">|  |  |  |  |     OR sun,mon,tue,wed,thu,fri,sat</span><br><span class="line">|  |  |  |  |</span><br><span class="line">*  *  *  *  * username  <span class="built_in">command</span> to be executed</span><br></pre></td></tr></table></figure>
+
 <span id="more"></span>
 
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><h3 id="LEFT函数"><a href="#LEFT函数" class="headerlink" title="LEFT函数"></a><code>LEFT</code>函数</h3><p><code>LEFT</code>函数会从给定的字符串左侧开始截取指定数量的字符，例如：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LEFT</span>(<span class="string">&#x27;address&#x27;</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>返回结果如下。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">addre</span><br></pre></td></tr></table></figure>
-<h3 id="RIGHT函数"><a href="#RIGHT函数" class="headerlink" title="RIGHT函数"></a><code>RIGHT</code>函数</h3><p>和<code>LEFT</code>函数类似，<code>RIGHT</code>函数会从给定的字符串右侧开始，向左截取指定数量的字符。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">RIGHT</span>(<span class="string">&#x27;address&#x27;</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>结果如下。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">dress</span><br></pre></td></tr></table></figure>
-
-<h3 id="SUBSTRING函数"><a href="#SUBSTRING函数" class="headerlink" title="SUBSTRING函数"></a><code>SUBSTRING</code>函数</h3><p>那如果想要从给定字符串中间开始截取字符该怎么办呢？<code>SUBSTRING</code>函数可以解决这个问题。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;address&#x27;</span>, <span class="number">2</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>通过<code>SUBSTRING</code>函数可以指定目标字符串的开始和结束位置，从而达到从中间截取字符串的目的。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">ddres</span><br></pre></td></tr></table></figure>
-
-<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>上面这些基础的字符串截取操作可以应对大部分简单需求，但在面对更复杂的场景时就会显得力不从心。</p>
-<p>例如，某个数据库字段存储了一段完整的JSON格式长字符串，我们需要从中提取出某一key值对应的value，由于每个JSON字符串中存储的内容都不相同，字符串长短不一，无法通过简单给定具体数值来截取字符串，此时又该怎么办呢？</p>
-<p>这里我们需要借助<code>CHARINDEX</code>函数的帮助。</p>
-<h3 id="CHARINDEX函数"><a href="#CHARINDEX函数" class="headerlink" title="CHARINDEX函数"></a><code>CHARINDEX</code>函数</h3><p><code>CHARINDEX</code>函数用于在指定字符串表达式中搜索目标字符串，若目标字符串存在则返回其在指定字符串中的位置，否则返回0。 它的语法如下：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">CHARINDEX(expressionToFind, expressionToSearch, [, start_location])</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ul>
-<li>expressionToFind：字符串表达式，包括要查找的字符串，限制长度8000字符。</li>
-<li>expressionToSearch：要被查找的字符串表达式</li>
-<li>start_location：可选参数，表示搜索开始位置的integer或bigint表达式。如果start_location未指定、具有负数值或0，搜索将从expressionToSearch的开头开始。</li>
-</ul>
-</blockquote>
-<p><strong>返回类型</strong></p>
-<p>如果expressionToSearch具有一个nvarchar(max)、varbinary(max)或varchar(max)数据类型，则为bigint；否则为int。例如:</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;CHARINDEX&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">26</span></span><br></pre></td></tr></table></figure>
-
-<p>需要注意，<code>CHARINDEX</code>的返回结果是从1开始计算的。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;This&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p>如果目标不存在，则会返回0。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;sql&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p>此外，<code>CHARINDEX</code>默认不区分大小写。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;charindex&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">26</span></span><br></pre></td></tr></table></figure>
-
-<p>如想要进行区分大小写的搜索，可以使用<code>COLLATE</code>。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;charindex&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span> <span class="keyword">COLLATE</span> Latin1_General_CS_AS)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="利用SUBSTRING和CHARINDEX实现字符串精确截取"><a href="#利用SUBSTRING和CHARINDEX实现字符串精确截取" class="headerlink" title="利用SUBSTRING和CHARINDEX实现字符串精确截取"></a>利用<code>SUBSTRING</code>和<code>CHARINDEX</code>实现字符串精确截取</h3><p>假设我们有张叫做<code>PersonalInfo</code>的表，其中的<code>Basic_Information</code>字段存储了JSON格式的信息，里面包括<code>name</code>，<code>age</code>，<code>city</code>，<code>occupation</code>信息，现在我们想要查询表里面所有人的<code>name</code>和<code>occupation</code>信息并输出。</p>
-<p>首先创建表。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> #PersonalInfo (</span><br><span class="line">    create_time <span class="type">DATE</span>,</span><br><span class="line">    Basic_Information NVARCHAR(MAX)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>接下来插入一些测试数据。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> #PersonalInfo <span class="keyword">VALUES</span> (<span class="string">&#x27;2024-04-19&#x27;</span>, <span class="string">&#x27;&#123;&quot;name&quot;: &quot;张三&quot;, &quot;age&quot;: &quot;32&quot;, &quot;city&quot;: &quot;北京市&quot;, &quot;occupation&quot;: &quot;IT&quot;&#125;&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> #PersonalInfo <span class="keyword">VALUES</span> (<span class="string">&#x27;2024-04-22&#x27;</span>, <span class="string">&#x27;&#123;&quot;name&quot;: &quot;李四&quot;, &quot;age&quot;: &quot;25&quot;, &quot;city&quot;: &quot;上海市&quot;, &quot;occupation&quot;: &quot;Sales&quot;&#125;&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> #PersonalInfo <span class="keyword">VALUES</span> (<span class="string">&#x27;2024-04-23&#x27;</span>, <span class="string">&#x27;&#123;&quot;name&quot;: &quot;王五&quot;, &quot;age&quot;: &quot;46&quot;, &quot;city&quot;: &quot;广州市&quot;, &quot;occupation&quot;: &quot;Manufacture&quot;&#125;&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> #PersonalInfo <span class="keyword">VALUES</span> (<span class="string">&#x27;2024-04-24&#x27;</span>, <span class="string">&#x27;&#123;&quot;name&quot;: &quot;赵六&quot;, &quot;age&quot;: &quot;38&quot;, &quot;city&quot;: &quot;深圳市&quot;, &quot;occupation&quot;: &quot;Government&quot;&#125;&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>查询思路</strong></p>
-<p>可以利用<code>SUBSTRING</code>+<code>CHARINDEX</code>来精准获取目标值。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    <span class="built_in">SUBSTRING</span>(Basic_Information,</span><br><span class="line">              CHARINDEX(<span class="string">&#x27;name&#x27;</span>, Basic_Information) <span class="operator">+</span> LEN(<span class="string">&#x27;name&#x27;</span>) <span class="operator">+</span> <span class="number">4</span>,</span><br><span class="line">              CHARINDEX(<span class="string">&#x27;age&#x27;</span>,  Basic_Information) <span class="operator">-</span> (CHARINDEX(<span class="string">&#x27;name&#x27;</span>, Basic_Information) <span class="operator">+</span> LEN(<span class="string">&#x27;name&#x27;</span>) <span class="operator">+</span> <span class="number">3</span>) <span class="operator">-</span> <span class="number">5</span>) <span class="keyword">as</span> name,</span><br><span class="line">    <span class="built_in">SUBSTRING</span>(Basic_Information,</span><br><span class="line">              CHARINDEX(<span class="string">&#x27;Occupation&#x27;</span>, Basic_Information) <span class="operator">+</span> LEN(<span class="string">&#x27;Occupation&#x27;</span>) <span class="operator">+</span> <span class="number">4</span>,</span><br><span class="line">              LEN(Basic_Information) <span class="operator">-</span> (CHARINDEX(<span class="string">&#x27;Occupation&#x27;</span>, Basic_Information) <span class="operator">+</span> LEN(<span class="string">&#x27;Occupation&#x27;</span>) <span class="operator">+</span> <span class="number">4</span>) <span class="operator">-</span> <span class="number">1</span>) <span class="keyword">as</span> Occupation</span><br><span class="line"><span class="keyword">FROM</span> #PersonalInfo</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">     name   Occupation</span><br><span class="line"><span class="number">1</span>    张三    IT</span><br><span class="line"><span class="number">2</span>    李四    Sales</span><br><span class="line"><span class="number">3</span>    王五    Manufacture</span><br><span class="line"><span class="number">4</span>    赵六    Government</span><br></pre></td></tr></table></figure>
-
-<h2 id="REFERENCE"><a href="#REFERENCE" class="headerlink" title="REFERENCE"></a>REFERENCE</h2><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/sql/t-sql/functions/charindex-transact-sql?view=sql-server-ver16">CHARINDEX (Transact-SQL)</a></p>
-<center>- EOF -</center>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><center>- EOF -</center>
     </div>
 
     
@@ -329,20 +263,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/SQL/" rel="tag"># SQL</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/04/21/openssl-x509/" rel="prev" title="Linux SSL证书有效期查询">
-                  <i class="fa fa-chevron-left"></i> Linux SSL证书有效期查询
+                <a href="/2025/01/07/string-replacement-in-vim/" rel="prev" title="vim字符串替换方法">
+                  <i class="fa fa-chevron-left"></i> vim字符串替换方法
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/04/29/Python-Colorful-Print/" rel="next" title="Python彩色打印终端文本">
-                  Python彩色打印终端文本 <i class="fa fa-chevron-right"></i>
+                <a href="/2025/01/23/Install-Python-on-Linux-via-Source-Tarball/" rel="next" title="Linux环境下Python的安装与删除（用编译源码的方法实现）">
+                  Linux环境下Python的安装与删除（用编译源码的方法实现） <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

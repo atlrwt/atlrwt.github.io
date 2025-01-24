@@ -40,28 +40,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="写在前面本文总结了SQL Server进行字符串截取时的常用方法，包括LEFT、RIGHT、SUBSTRING及CHARINDEX函数的使用。">
+    <meta name="description" content="本文记录了:  如何通过编译source tarball的方式将Python安装到Linux系统中。 如何删除手动安装的Python。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="玩转SQL Server字符串截取">
-<meta property="og:url" content="http://example.com/2024/04/26/SQLServer-String-Manipulating/index.html">
+<meta property="og:title" content="Linux环境下Python的安装与删除（用编译源码的方法实现）">
+<meta property="og:url" content="http://example.com/2025/01/23/Install-Python-on-Linux-via-Source-Tarball/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="写在前面本文总结了SQL Server进行字符串截取时的常用方法，包括LEFT、RIGHT、SUBSTRING及CHARINDEX函数的使用。">
+<meta property="og:description" content="本文记录了:  如何通过编译source tarball的方式将Python安装到Linux系统中。 如何删除手动安装的Python。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-26T12:12:03.000Z">
-<meta property="article:modified_time" content="2024-08-29T11:40:36.000Z">
+<meta property="article:published_time" content="2025-01-23T02:35:37.000Z">
+<meta property="article:modified_time" content="2025-01-23T13:12:28.617Z">
 <meta property="article:author" content="atlrwt">
-<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2024/04/26/SQLServer-String-Manipulating/">
+<link rel="canonical" href="http://example.com/2025/01/23/Install-Python-on-Linux-via-Source-Tarball/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/04/26/SQLServer-String-Manipulating/","path":"2024/04/26/SQLServer-String-Manipulating/","title":"玩转SQL Server字符串截取"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/01/23/Install-Python-on-Linux-via-Source-Tarball/","path":"2025/01/23/Install-Python-on-Linux-via-Source-Tarball/","title":"Linux环境下Python的安装与删除（用编译源码的方法实现）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>玩转SQL Server字符串截取 | 知行合一</title>
+<title>Linux环境下Python的安装与删除（用编译源码的方法实现） | 知行合一</title>
   
 
 
@@ -134,7 +134,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LEFT%E5%87%BD%E6%95%B0"><span class="nav-text">LEFT函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RIGHT%E5%87%BD%E6%95%B0"><span class="nav-text">RIGHT函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUBSTRING%E5%87%BD%E6%95%B0"><span class="nav-text">SUBSTRING函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6"><span class="nav-text">进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CHARINDEX%E5%87%BD%E6%95%B0"><span class="nav-text">CHARINDEX函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8SUBSTRING%E5%92%8CCHARINDEX%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B2%BE%E7%A1%AE%E6%88%AA%E5%8F%96"><span class="nav-text">利用SUBSTRING和CHARINDEX实现字符串精确截取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REFERENCE"><span class="nav-text">REFERENCE</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF"><span class="nav-text">环境信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Python"><span class="nav-text">通过源码编译安装Python</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E4%BE%9D%E8%B5%96"><span class="nav-text">步骤1：安装系统依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6"><span class="nav-text">步骤2：下载源码文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%BA%90%E7%A0%81"><span class="nav-text">步骤3：解压缩源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A44%EF%BC%9A%E7%BC%96%E8%AF%91%E5%8F%8A%E5%AE%89%E8%A3%85"><span class="nav-text">步骤4：编译及安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A45%EF%BC%9A%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C"><span class="nav-text">步骤5：验证结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85%E7%9A%84Python"><span class="nav-text">删除源码安装的Python</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A41-%E6%89%BE%E5%88%B0%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84"><span class="nav-text">步骤1: 找到安装路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A42-%E5%88%A0%E9%99%A4%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-text">步骤2: 删除可执行文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A43-%E5%88%A0%E9%99%A4%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-text">步骤3: 删除库文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A44-%E5%88%A0%E9%99%A4%E5%85%B6%E4%BB%96%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6"><span class="nav-text">步骤4: 删除其他相关文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A45-%E9%AA%8C%E8%AF%81%E5%88%A0%E9%99%A4"><span class="nav-text">步骤5: 验证删除</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -189,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/26/SQLServer-String-Manipulating/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/23/Install-Python-on-Linux-via-Source-Tarball/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -202,12 +202,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="玩转SQL Server字符串截取 | 知行合一">
+      <meta itemprop="name" content="Linux环境下Python的安装与删除（用编译源码的方法实现） | 知行合一">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          玩转SQL Server字符串截取
+          Linux环境下Python的安装与删除（用编译源码的方法实现）
         </h1>
 
         <div class="post-meta-container">
@@ -217,15 +217,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2024-04-26 20:12:03" itemprop="dateCreated datePublished" datetime="2024-04-26T20:12:03+08:00">2024-04-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-08-29 19:40:36" itemprop="dateModified" datetime="2024-08-29T19:40:36+08:00">2024-08-29</time>
+      <time title="创建时间：2025-01-23 10:35:37 / 修改时间：21:12:28" itemprop="dateCreated datePublished" datetime="2025-01-23T10:35:37+08:00">2025-01-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -233,7 +227,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Data-Analysis/" itemprop="url" rel="index"><span itemprop="name">Data Analysis</span></a>
+          <a href="/categories/Ops/" itemprop="url" rel="index"><span itemprop="name">Ops</span></a>
         </span>
     </span>
 
@@ -247,79 +241,58 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>本文总结了SQL Server进行字符串截取时的常用方法，包括<code>LEFT</code>、<code>RIGHT</code>、<code>SUBSTRING</code>及<code>CHARINDEX</code>函数的使用。</p>
+        <p>本文记录了:</p>
+<ol>
+<li>如何通过编译source tarball的方式将Python安装到Linux系统中。</li>
+<li>如何删除手动安装的Python。</li>
+</ol>
 <span id="more"></span>
 
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><h3 id="LEFT函数"><a href="#LEFT函数" class="headerlink" title="LEFT函数"></a><code>LEFT</code>函数</h3><p><code>LEFT</code>函数会从给定的字符串左侧开始截取指定数量的字符，例如：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LEFT</span>(<span class="string">&#x27;address&#x27;</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>返回结果如下。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">addre</span><br></pre></td></tr></table></figure>
-<h3 id="RIGHT函数"><a href="#RIGHT函数" class="headerlink" title="RIGHT函数"></a><code>RIGHT</code>函数</h3><p>和<code>LEFT</code>函数类似，<code>RIGHT</code>函数会从给定的字符串右侧开始，向左截取指定数量的字符。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">RIGHT</span>(<span class="string">&#x27;address&#x27;</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>结果如下。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">dress</span><br></pre></td></tr></table></figure>
-
-<h3 id="SUBSTRING函数"><a href="#SUBSTRING函数" class="headerlink" title="SUBSTRING函数"></a><code>SUBSTRING</code>函数</h3><p>那如果想要从给定字符串中间开始截取字符该怎么办呢？<code>SUBSTRING</code>函数可以解决这个问题。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;address&#x27;</span>, <span class="number">2</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>通过<code>SUBSTRING</code>函数可以指定目标字符串的开始和结束位置，从而达到从中间截取字符串的目的。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">ddres</span><br></pre></td></tr></table></figure>
-
-<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>上面这些基础的字符串截取操作可以应对大部分简单需求，但在面对更复杂的场景时就会显得力不从心。</p>
-<p>例如，某个数据库字段存储了一段完整的JSON格式长字符串，我们需要从中提取出某一key值对应的value，由于每个JSON字符串中存储的内容都不相同，字符串长短不一，无法通过简单给定具体数值来截取字符串，此时又该怎么办呢？</p>
-<p>这里我们需要借助<code>CHARINDEX</code>函数的帮助。</p>
-<h3 id="CHARINDEX函数"><a href="#CHARINDEX函数" class="headerlink" title="CHARINDEX函数"></a><code>CHARINDEX</code>函数</h3><p><code>CHARINDEX</code>函数用于在指定字符串表达式中搜索目标字符串，若目标字符串存在则返回其在指定字符串中的位置，否则返回0。 它的语法如下：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">CHARINDEX(expressionToFind, expressionToSearch, [, start_location])</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ul>
-<li>expressionToFind：字符串表达式，包括要查找的字符串，限制长度8000字符。</li>
-<li>expressionToSearch：要被查找的字符串表达式</li>
-<li>start_location：可选参数，表示搜索开始位置的integer或bigint表达式。如果start_location未指定、具有负数值或0，搜索将从expressionToSearch的开头开始。</li>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h3><ul>
+<li><p>系统版本： Ubuntu 22.04.2 LTS</p>
+</li>
+<li><p>系统自带Python版本：3.10.12</p>
+</li>
 </ul>
-</blockquote>
-<p><strong>返回类型</strong></p>
-<p>如果expressionToSearch具有一个nvarchar(max)、varbinary(max)或varchar(max)数据类型，则为bigint；否则为int。例如:</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;CHARINDEX&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="通过源码编译安装Python"><a href="#通过源码编译安装Python" class="headerlink" title="通过源码编译安装Python"></a>通过源码编译安装Python</h3><p>如果我们需要通过源码形式将3.8.20版本的Python安装到Linux系统中，可以采用如下步骤。</p>
+<h4 id="步骤1：安装系统依赖"><a href="#步骤1：安装系统依赖" class="headerlink" title="步骤1：安装系统依赖"></a>步骤1：安装系统依赖</h4><p>参考<a target="_blank" rel="noopener" href="https://devguide.python.org/getting-started/setup-building/index.html#install-dependencies">Python Developer’s Guide</a>，根据不同的系统安装编译所需的依赖。</p>
+<p>首先，更新包索引。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">26</span></span><br></pre></td></tr></table></figure>
+<p>然后安装依赖。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get build-dep python3</span><br><span class="line">$ sudo apt-get install pkg-config</span><br></pre></td></tr></table></figure>
 
-<p>需要注意，<code>CHARINDEX</code>的返回结果是从1开始计算的。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;This&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>如果想要编译所有可选的模块（<code>module</code>），可以输入如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get install build-essential gdb lcov pkg-config \</span><br><span class="line">       libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev \</span><br><span class="line">       libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev \</span><br><span class="line">       lzma lzma-dev tk-dev uuid-dev zlib1g-dev libmpdec-dev</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h4 id="步骤2：下载源码文件"><a href="#步骤2：下载源码文件" class="headerlink" title="步骤2：下载源码文件"></a>步骤2：下载源码文件</h4><p>我们选择将Python源码放到<code>/usr/src/</code>路径下进行编译。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~ $ <span class="built_in">cd</span> /usr/src</span><br><span class="line">/usr/src $ sudo wget https://www.python.org/ftp/python/3.8.20/Python-3.8.20.tgz</span><br></pre></td></tr></table></figure>
 
-<p>如果目标不存在，则会返回0。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;sql&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="步骤3：解压缩源码"><a href="#步骤3：解压缩源码" class="headerlink" title="步骤3：解压缩源码"></a>步骤3：解压缩源码</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/src $ sudo tar -zxf Python-3.8.20.tgz</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h4 id="步骤4：编译及安装"><a href="#步骤4：编译及安装" class="headerlink" title="步骤4：编译及安装"></a>步骤4：编译及安装</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/src $ <span class="built_in">cd</span> Python-3.8.20</span><br><span class="line">/usr/src/Python-3.8.20 $ sudo ./configure --enable-optimizations</span><br><span class="line">/usr/src/Python-3.8.20 $ sudo make altinstall</span><br></pre></td></tr></table></figure>
 
-<p>此外，<code>CHARINDEX</code>默认不区分大小写。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;charindex&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>这里使用<code>make altinstall</code>以避免源码安装的Python覆盖掉系统自带的Python。</p>
+<h4 id="步骤5：验证结果"><a href="#步骤5：验证结果" class="headerlink" title="步骤5：验证结果"></a>步骤5：验证结果</h4><p>安装完的Python执行程序会放置在<code>/usr/local/bin/</code>路径下，我们可以去这里查看。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~ $ <span class="built_in">ls</span> -lh /usr/local/bin/</span><br><span class="line">-rwxr-xr-x 1 root root  101 Jan 23 05:53 2to3-3.8</span><br><span class="line">-rwxr-xr-x 1 root root   99 Jan 23 05:53 idle3.8</span><br><span class="line">-rwxr-xr-x 1 root root  229 Jan 23 05:53 pip3.8</span><br><span class="line">-rwxr-xr-x 1 root root   84 Jan 23 05:53 pydoc3.8</span><br><span class="line">-rwxr-xr-x 1 root root  14M Jan 23 05:50 python3.8</span><br><span class="line">-rwxr-xr-x 1 root root 3.0K Jan 23 05:53 python3.8-config</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">26</span></span><br></pre></td></tr></table></figure>
+<p>检查一下版本。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~ $ python3.8 --version</span><br><span class="line">Python 3.8.20</span><br></pre></td></tr></table></figure>
 
-<p>如想要进行区分大小写的搜索，可以使用<code>COLLATE</code>。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARINDEX(<span class="string">&#x27;charindex&#x27;</span>, <span class="string">&#x27;This is a sample to test CHARINDEX function.&#x27;</span> <span class="keyword">COLLATE</span> Latin1_General_CS_AS)</span><br></pre></td></tr></table></figure>
+<h3 id="删除源码安装的Python"><a href="#删除源码安装的Python" class="headerlink" title="删除源码安装的Python"></a>删除源码安装的Python</h3><p>在Linux中，删除源码安装的Python通常需要一些手动操作，步骤如下。</p>
+<h4 id="步骤1-找到安装路径"><a href="#步骤1-找到安装路径" class="headerlink" title="步骤1: 找到安装路径"></a>步骤1: 找到安装路径</h4><p>默认情况下源码安装的Python会安装在<code>/usr/local/bin</code>、<code>/usr/local/lib</code>和相关的目录中，我们可以使用如下命令来进行查找：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ whereis python3.8</span><br><span class="line">python3.8: /usr/local/bin/python3.8 /usr/local/lib/python3.8</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h4 id="步骤2-删除可执行文件"><a href="#步骤2-删除可执行文件" class="headerlink" title="步骤2: 删除可执行文件"></a>步骤2: 删除可执行文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo <span class="built_in">rm</span> -f /usr/local/bin/python3.8</span><br></pre></td></tr></table></figure>
 
-<h3 id="利用SUBSTRING和CHARINDEX实现字符串精确截取"><a href="#利用SUBSTRING和CHARINDEX实现字符串精确截取" class="headerlink" title="利用SUBSTRING和CHARINDEX实现字符串精确截取"></a>利用<code>SUBSTRING</code>和<code>CHARINDEX</code>实现字符串精确截取</h3><p>假设我们有张叫做<code>PersonalInfo</code>的表，其中的<code>Basic_Information</code>字段存储了JSON格式的信息，里面包括<code>name</code>，<code>age</code>，<code>city</code>，<code>occupation</code>信息，现在我们想要查询表里面所有人的<code>name</code>和<code>occupation</code>信息并输出。</p>
-<p>首先创建表。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> #PersonalInfo (</span><br><span class="line">    create_time <span class="type">DATE</span>,</span><br><span class="line">    Basic_Information NVARCHAR(MAX)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="步骤3-删除库文件"><a href="#步骤3-删除库文件" class="headerlink" title="步骤3: 删除库文件"></a>步骤3: 删除库文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo <span class="built_in">rm</span> -rf /usr/local/lib/python3.8</span><br></pre></td></tr></table></figure>
 
-<p>接下来插入一些测试数据。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> #PersonalInfo <span class="keyword">VALUES</span> (<span class="string">&#x27;2024-04-19&#x27;</span>, <span class="string">&#x27;&#123;&quot;name&quot;: &quot;张三&quot;, &quot;age&quot;: &quot;32&quot;, &quot;city&quot;: &quot;北京市&quot;, &quot;occupation&quot;: &quot;IT&quot;&#125;&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> #PersonalInfo <span class="keyword">VALUES</span> (<span class="string">&#x27;2024-04-22&#x27;</span>, <span class="string">&#x27;&#123;&quot;name&quot;: &quot;李四&quot;, &quot;age&quot;: &quot;25&quot;, &quot;city&quot;: &quot;上海市&quot;, &quot;occupation&quot;: &quot;Sales&quot;&#125;&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> #PersonalInfo <span class="keyword">VALUES</span> (<span class="string">&#x27;2024-04-23&#x27;</span>, <span class="string">&#x27;&#123;&quot;name&quot;: &quot;王五&quot;, &quot;age&quot;: &quot;46&quot;, &quot;city&quot;: &quot;广州市&quot;, &quot;occupation&quot;: &quot;Manufacture&quot;&#125;&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> #PersonalInfo <span class="keyword">VALUES</span> (<span class="string">&#x27;2024-04-24&#x27;</span>, <span class="string">&#x27;&#123;&quot;name&quot;: &quot;赵六&quot;, &quot;age&quot;: &quot;38&quot;, &quot;city&quot;: &quot;深圳市&quot;, &quot;occupation&quot;: &quot;Government&quot;&#125;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="步骤4-删除其他相关文件"><a href="#步骤4-删除其他相关文件" class="headerlink" title="步骤4: 删除其他相关文件"></a>步骤4: 删除其他相关文件</h4><p>如果在安装时使用了<code>make altinstall</code>，我们还需要删除其他相关文件，例如pip等：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -lh /usr/local/bin/</span><br><span class="line">-rwxr-xr-x 1 root root  101 Jan 23 05:53 2to3-3.8</span><br><span class="line">-rwxr-xr-x 1 root root   99 Jan 23 05:53 idle3.8</span><br><span class="line">-rwxr-xr-x 1 root root  229 Jan 23 05:53 pip3.8</span><br><span class="line">-rwxr-xr-x 1 root root   84 Jan 23 05:53 pydoc3.8</span><br><span class="line">-rwxr-xr-x 1 root root  14M Jan 23 05:50 python3.8</span><br><span class="line">-rwxr-xr-x 1 root root 3.0K Jan 23 05:53 python3.8-config</span><br><span class="line">$ sudo <span class="built_in">rm</span> -f /usr/local/bin/*3.8*</span><br></pre></td></tr></table></figure>
 
-<p><strong>查询思路</strong></p>
-<p>可以利用<code>SUBSTRING</code>+<code>CHARINDEX</code>来精准获取目标值。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    <span class="built_in">SUBSTRING</span>(Basic_Information,</span><br><span class="line">              CHARINDEX(<span class="string">&#x27;name&#x27;</span>, Basic_Information) <span class="operator">+</span> LEN(<span class="string">&#x27;name&#x27;</span>) <span class="operator">+</span> <span class="number">4</span>,</span><br><span class="line">              CHARINDEX(<span class="string">&#x27;age&#x27;</span>,  Basic_Information) <span class="operator">-</span> (CHARINDEX(<span class="string">&#x27;name&#x27;</span>, Basic_Information) <span class="operator">+</span> LEN(<span class="string">&#x27;name&#x27;</span>) <span class="operator">+</span> <span class="number">3</span>) <span class="operator">-</span> <span class="number">5</span>) <span class="keyword">as</span> name,</span><br><span class="line">    <span class="built_in">SUBSTRING</span>(Basic_Information,</span><br><span class="line">              CHARINDEX(<span class="string">&#x27;Occupation&#x27;</span>, Basic_Information) <span class="operator">+</span> LEN(<span class="string">&#x27;Occupation&#x27;</span>) <span class="operator">+</span> <span class="number">4</span>,</span><br><span class="line">              LEN(Basic_Information) <span class="operator">-</span> (CHARINDEX(<span class="string">&#x27;Occupation&#x27;</span>, Basic_Information) <span class="operator">+</span> LEN(<span class="string">&#x27;Occupation&#x27;</span>) <span class="operator">+</span> <span class="number">4</span>) <span class="operator">-</span> <span class="number">1</span>) <span class="keyword">as</span> Occupation</span><br><span class="line"><span class="keyword">FROM</span> #PersonalInfo</span><br></pre></td></tr></table></figure>
+<h4 id="步骤5-验证删除"><a href="#步骤5-验证删除" class="headerlink" title="步骤5: 验证删除"></a>步骤5: 验证删除</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ whereis python3.8</span><br><span class="line">python3.8:</span><br><span class="line">$ python3.8 --version</span><br><span class="line">Command <span class="string">&#x27;python3.8&#x27;</span> not found, did you mean:</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">     name   Occupation</span><br><span class="line"><span class="number">1</span>    张三    IT</span><br><span class="line"><span class="number">2</span>    李四    Sales</span><br><span class="line"><span class="number">3</span>    王五    Manufacture</span><br><span class="line"><span class="number">4</span>    赵六    Government</span><br></pre></td></tr></table></figure>
-
-<h2 id="REFERENCE"><a href="#REFERENCE" class="headerlink" title="REFERENCE"></a>REFERENCE</h2><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/sql/t-sql/functions/charindex-transact-sql?view=sql-server-ver16">CHARINDEX (Transact-SQL)</a></p>
+<p>如果显示<code>command not found</code>或类似的错误，说明Python已成功删除。</p>
 <center>- EOF -</center>
     </div>
 
@@ -329,21 +302,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/SQL/" rel="tag"># SQL</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/04/21/openssl-x509/" rel="prev" title="Linux SSL证书有效期查询">
-                  <i class="fa fa-chevron-left"></i> Linux SSL证书有效期查询
+                <a href="/2025/01/13/A-Brief-Analysis-of-Linux-Scheduled-Task-Scheduling/" rel="prev" title="浅析Linux定时任务调度 - crontab">
+                  <i class="fa fa-chevron-left"></i> 浅析Linux定时任务调度 - crontab
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/04/29/Python-Colorful-Print/" rel="next" title="Python彩色打印终端文本">
-                  Python彩色打印终端文本 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
