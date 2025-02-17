@@ -40,23 +40,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="知行合一">
-<meta property="og:url" content="http://example.com/archives/2024/04/index.html">
+    <meta name="description" content="TL-DRROW_NUMBER() OVER (    [PARTITION BY partition_expression, ... ]    ORDER BY sort_expression [ASC | DESC], ...)   PARTITION BY：可选参数，用于将结果集划分为多个分区，ROW_NUMBER()函数会在每个分区内独立地为行分配行号。 ORDER BY：必选参数，用于指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROW_NUMBER函数的用法及常见注意事项">
+<meta property="og:url" content="http://example.com/2025/02/10/sql-row-number/index.html">
 <meta property="og:site_name" content="知行合一">
+<meta property="og:description" content="TL-DRROW_NUMBER() OVER (    [PARTITION BY partition_expression, ... ]    ORDER BY sort_expression [ASC | DESC], ...)   PARTITION BY：可选参数，用于将结果集划分为多个分区，ROW_NUMBER()函数会在每个分区内独立地为行分配行号。 ORDER BY：必选参数，用于指">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-10T12:46:51.000Z">
+<meta property="article:modified_time" content="2025-02-17T13:16:03.145Z">
 <meta property="article:author" content="atlrwt">
+<meta property="article:tag" content="SQL">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/archives/2024/04/">
+<link rel="canonical" href="http://example.com/2025/02/10/sql-row-number/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2024/04/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/02/10/sql-row-number/","path":"2025/02/10/sql-row-number/","title":"ROW_NUMBER函数的用法及常见注意事项"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | 知行合一</title>
+<title>ROW_NUMBER函数的用法及常见注意事项 | 知行合一</title>
   
 
 
@@ -89,7 +94,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">知行合一</h1>
+      <p class="site-title">知行合一</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">止于至善</p>
@@ -116,7 +121,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -129,6 +134,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TL-DR"><span class="nav-text">TL-DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B1%EF%BC%9A%E4%B8%8D%E4%BD%BF%E7%94%A8-PARTITION-BY"><span class="nav-text">示例1：不使用 PARTITION BY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B2%EF%BC%9A%E4%BD%BF%E7%94%A8-PARTITION-BY"><span class="nav-text">示例2：使用 PARTITION BY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B3%EF%BC%9A%E4%BD%BF%E7%94%A8-ROW-NUMBER-%E8%BF%9B%E8%A1%8C%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-text">示例3：使用 ROW_NUMBER() 进行分页查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -172,109 +178,300 @@
 
     </div>
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 26 篇日志。 继续努力。</span>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/10/sql-row-number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="atlrwt">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知行合一">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ROW_NUMBER函数的用法及常见注意事项 | 知行合一">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ROW_NUMBER函数的用法及常见注意事项
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-02-10 20:46:51" itemprop="dateCreated datePublished" datetime="2025-02-10T20:46:51+08:00">2025-02-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-17 21:16:03" itemprop="dateModified" datetime="2025-02-17T21:16:03+08:00">2025-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Data-Analysis/" itemprop="url" rel="index"><span itemprop="name">Data Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL-DR"></a>TL-DR</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> (</span><br><span class="line">    [<span class="keyword">PARTITION</span> <span class="keyword">BY</span> partition_expression, ... ]</span><br><span class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> sort_expression [<span class="keyword">ASC</span> <span class="operator">|</span> <span class="keyword">DESC</span>], ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>PARTITION BY</code>：可选参数，用于将结果集划分为多个分区，<code>ROW_NUMBER()</code>函数会在每个分区内独立地为行分配行号。</li>
+<li><code>ORDER BY</code>：必选参数，用于指定对结果集或每个分区内的行进行排序的规则。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p><code>ROW_NUMBER()</code>是 SQL 中的一个窗口函数，用于为结果集中的每一行分配一个唯一的行号。它按照指定的排序顺序对结果集进行排序，并为每行依次分配从<code>1</code>开始的连续整数。其语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> (</span><br><span class="line">    [<span class="keyword">PARTITION</span> <span class="keyword">BY</span> partition_expression, ... ]</span><br><span class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> sort_expression [<span class="keyword">ASC</span> <span class="operator">|</span> <span class="keyword">DESC</span>], ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>PARTITION BY</code>：可选参数，用于将结果集划分为多个分区，<code>ROW_NUMBER()</code>函数会在每个分区内独立地为行分配行号。</li>
+<li><code>ORDER BY</code>：必选参数，用于指定对结果集或每个分区内的行进行排序的规则。</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>假设我们有一个名为<code>students</code>的表，用于存储学生的信息，包括学生ID、班级ID和成绩，表结构和示例数据如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 创建 students 表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students (</span><br><span class="line">    student_id <span class="type">INT</span>,</span><br><span class="line">    class_id <span class="type">INT</span>,</span><br><span class="line">    score <span class="type">INT</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入示例数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (student_id, class_id, score) <span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>, <span class="number">1</span>, <span class="number">85</span>),</span><br><span class="line">(<span class="number">2</span>, <span class="number">1</span>, <span class="number">90</span>),</span><br><span class="line">(<span class="number">3</span>, <span class="number">1</span>, <span class="number">78</span>),</span><br><span class="line">(<span class="number">4</span>, <span class="number">2</span>, <span class="number">92</span>),</span><br><span class="line">(<span class="number">5</span>, <span class="number">2</span>, <span class="number">88</span>),</span><br><span class="line">(<span class="number">6</span>, <span class="number">2</span>, <span class="number">76</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="示例1：不使用-PARTITION-BY"><a href="#示例1：不使用-PARTITION-BY" class="headerlink" title="示例1：不使用 PARTITION BY"></a>示例1：不使用 PARTITION BY</h4><p>如果不使用<code>PARTITION BY</code>，<code>ROW_NUMBER()</code>函数会对整个结果集进行排序并分配行号。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    student_id,</span><br><span class="line">    class_id,</span><br><span class="line">    score,</span><br><span class="line">    <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>) <span class="keyword">AS</span> row_num</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    students;</span><br></pre></td></tr></table></figure>
+
+<p>这个查询会对整个<code>students</code>表按照成绩降序排序，然后为每行分配一个从<code>1</code>开始的连续行号。结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>student_id</th>
+<th>class_id</th>
+<th>score</th>
+<th>row_num</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4</td>
+<td>2</td>
+<td>92</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>90</td>
+<td>2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>88</td>
+<td>3</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>85</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>78</td>
+<td>5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2</td>
+<td>76</td>
+<td>6</td>
+</tr>
+</tbody></table>
+<h4 id="示例2：使用-PARTITION-BY"><a href="#示例2：使用-PARTITION-BY" class="headerlink" title="示例2：使用 PARTITION BY"></a>示例2：使用 PARTITION BY</h4><p>当使用<code>PARTITION BY</code>时，<code>ROW_NUMBER()</code>函数会在每个分区内独立地为行分配行号。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    student_id,</span><br><span class="line">    class_id,</span><br><span class="line">    score,</span><br><span class="line">    <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> class_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>) <span class="keyword">AS</span> row_num</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    students;</span><br></pre></td></tr></table></figure>
+
+<p>这个查询会将<code>students</code>表按照班级<code>ID</code>进行分区，然后在每个班级内按照成绩降序排序，并为每行分配一个从<code>1</code>开始的连续行号。结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>student_id</th>
+<th>class_id</th>
+<th>score</th>
+<th>row_num</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>1</td>
+<td>90</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>85</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>78</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>92</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>88</td>
+<td>2</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2</td>
+<td>76</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<h4 id="示例3：使用-ROW-NUMBER-进行分页查询"><a href="#示例3：使用-ROW-NUMBER-进行分页查询" class="headerlink" title="示例3：使用 ROW_NUMBER() 进行分页查询"></a>示例3：使用 ROW_NUMBER() 进行分页查询</h4><p><code>ROW_NUMBER()</code>函数还可以用于实现分页查询。假设每页显示2条记录，我们想查询第二页的信息：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 子查询为每行分配行号</span></span><br><span class="line"><span class="keyword">WITH</span> numbered_students <span class="keyword">AS</span> (</span><br><span class="line">    <span class="keyword">SELECT</span></span><br><span class="line">        student_id,</span><br><span class="line">        class_id,</span><br><span class="line">        score,</span><br><span class="line">        <span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> student_id) <span class="keyword">AS</span> row_num</span><br><span class="line">    <span class="keyword">FROM</span></span><br><span class="line">        students</span><br><span class="line">)</span><br><span class="line"><span class="comment">-- 外层查询筛选出指定页的记录</span></span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    student_id,</span><br><span class="line">    class_id,</span><br><span class="line">    score</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    numbered_students</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">    row_num <span class="keyword">BETWEEN</span> <span class="number">3</span> <span class="keyword">AND</span> <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上述查询首先通过子查询为<code>students</code>表中的每一行按照<code>student_id</code>进行排序，并为每行分配一个从<code>1</code>开始的连续行号。执行子查询后的中间结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>student_id</th>
+<th>class_id</th>
+<th>score</th>
+<th>row_num</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1</td>
+<td>85</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>90</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>78</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>92</td>
+<td>4</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>88</td>
+<td>5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2</td>
+<td>76</td>
+<td>6</td>
+</tr>
+</tbody></table>
+<p>然后外层查询会从上述中间结果中筛选出行号在<code>3</code>到<code>4</code>之间的记录，也就是筛选出第3行和第4行的数据。最终查询结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>student_id</th>
+<th>class_id</th>
+<th>score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td>1</td>
+<td>78</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>92</td>
+</tr>
+</tbody></table>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>唯一性: <code>ROW_NUMBER()</code>返回的序号在每个分组内是唯一的，但在不同的分组中可能会重复。</li>
+<li>排序: <code>ORDER BY</code>子句是必需的，因为没有指定排序规则就无法确定如何分配行号。</li>
+<li>性能: 在大型数据集上使用<code>ROW_NUMBER()</code>时，可能会影响查询性能，尤其是在没有适当索引的情况下。</li>
+<li>无确定性: 如果在<code>ORDER BY</code>子句中使用的列的值相同，<code>ROW_NUMBER()</code>返回的结果可能不一致，最好在排序时使用唯一的列组合来确保一致性。</li>
+</ul>
+<center>- EOF -</center>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-29T16:33:32+08:00"
-              content="2024-04-29">
-          04-29
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/04/29/Python-Colorful-Print/" itemprop="url">
-            <span itemprop="name">Python彩色打印终端文本</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/23/Install-Python-on-Linux-via-Source-Tarball/" rel="prev" title="Linux环境下Python的安装与删除（用编译源码的方法实现）">
+                  <i class="fa fa-chevron-left"></i> Linux环境下Python的安装与删除（用编译源码的方法实现）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-26T20:12:03+08:00"
-              content="2024-04-26">
-          04-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/04/26/SQLServer-String-Manipulating/" itemprop="url">
-            <span itemprop="name">玩转SQL Server字符串截取</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-21T13:52:35+08:00"
-              content="2024-04-21">
-          04-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/04/21/openssl-x509/" itemprop="url">
-            <span itemprop="name">Linux SSL证书有效期查询</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-04-08T20:24:06+08:00"
-              content="2024-04-08">
-          04-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/04/08/curl-command-usage/" itemprop="url">
-            <span itemprop="name">curl命令的常见使用方法</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
 
 </div>
   </main>
