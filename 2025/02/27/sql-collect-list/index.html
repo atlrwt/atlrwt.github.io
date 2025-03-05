@@ -40,29 +40,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="TL-DR将光标所在行所有的old_string替换为new_string： :s&#x2F;old_string&#x2F;new_string&#x2F;g  将当前文件所有的old_string替换为new_string： :%s&#x2F;old_string&#x2F;new_string&#x2F;g">
+    <meta name="description" content="TL-DR函数COLLECT_LIST用于将多行数据聚合为一个数组，其语法为： COLLECT_LIST(expression)   expression：待聚合的列或表达式。  常见注意事项：  COLLECT_LIST函数默认会忽略掉NULL值，如果想保留NULL值可以考虑使用COALESCE函数进行预处理。 COLLECT_LIST函数生成的结果顺序并不固定，可以通过ARRAY_SORT函数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim字符串替换方法">
-<meta property="og:url" content="http://example.com/2025/01/07/string-replacement-in-vim/index.html">
+<meta property="og:title" content="Spark SQL中COLLECT_LIST函数的用法及常见注意事项">
+<meta property="og:url" content="http://example.com/2025/02/27/sql-collect-list/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="TL-DR将光标所在行所有的old_string替换为new_string： :s&#x2F;old_string&#x2F;new_string&#x2F;g  将当前文件所有的old_string替换为new_string： :%s&#x2F;old_string&#x2F;new_string&#x2F;g">
+<meta property="og:description" content="TL-DR函数COLLECT_LIST用于将多行数据聚合为一个数组，其语法为： COLLECT_LIST(expression)   expression：待聚合的列或表达式。  常见注意事项：  COLLECT_LIST函数默认会忽略掉NULL值，如果想保留NULL值可以考虑使用COALESCE函数进行预处理。 COLLECT_LIST函数生成的结果顺序并不固定，可以通过ARRAY_SORT函数">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-01-07T06:40:51.000Z">
-<meta property="article:modified_time" content="2025-01-12T08:23:58.684Z">
+<meta property="article:published_time" content="2025-02-27T13:29:07.000Z">
+<meta property="article:modified_time" content="2025-03-05T13:18:45.490Z">
 <meta property="article:author" content="atlrwt">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="vim">
+<meta property="article:tag" content="SQL">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2025/01/07/string-replacement-in-vim/">
+<link rel="canonical" href="http://example.com/2025/02/27/sql-collect-list/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/01/07/string-replacement-in-vim/","path":"2025/01/07/string-replacement-in-vim/","title":"vim字符串替换方法"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/02/27/sql-collect-list/","path":"2025/02/27/sql-collect-list/","title":"Spark SQL中COLLECT_LIST函数的用法及常见注意事项"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>vim字符串替换方法 | 知行合一</title>
+<title>Spark SQL中COLLECT_LIST函数的用法及常见注意事项 | 知行合一</title>
   
 
 
@@ -135,7 +134,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TL-DR"><span class="nav-text">TL-DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#range"><span class="nav-text">[range]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pattern"><span class="nav-text">{pattern}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string"><span class="nav-text">{string}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flags"><span class="nav-text">[flags]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#g"><span class="nav-text">g</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i"><span class="nav-text">i</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c"><span class="nav-text">c</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TL-DR"><span class="nav-text">TL-DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-NULL%E5%80%BC%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-text">1. NULL值的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="nav-text">2. 数组元素的顺序</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -190,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/07/string-replacement-in-vim/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/27/sql-collect-list/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -203,12 +202,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="vim字符串替换方法 | 知行合一">
+      <meta itemprop="name" content="Spark SQL中COLLECT_LIST函数的用法及常见注意事项 | 知行合一">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          vim字符串替换方法
+          Spark SQL中COLLECT_LIST函数的用法及常见注意事项
         </h1>
 
         <div class="post-meta-container">
@@ -219,14 +218,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2025-01-07 14:40:51" itemprop="dateCreated datePublished" datetime="2025-01-07T14:40:51+08:00">2025-01-07</time>
+      <time title="创建时间：2025-02-27 21:29:07" itemprop="dateCreated datePublished" datetime="2025-02-27T21:29:07+08:00">2025-02-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-01-12 16:23:58" itemprop="dateModified" datetime="2025-01-12T16:23:58+08:00">2025-01-12</time>
+      <time title="修改时间：2025-03-05 21:18:45" itemprop="dateModified" datetime="2025-03-05T21:18:45+08:00">2025-03-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -234,7 +233,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Ops/" itemprop="url" rel="index"><span itemprop="name">Ops</span></a>
+          <a href="/categories/Data-Analysis/" itemprop="url" rel="index"><span itemprop="name">Data Analysis</span></a>
         </span>
     </span>
 
@@ -248,116 +247,165 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL-DR"></a>TL-DR</h2><p>将光标所在行所有的<code>old_string</code>替换为<code>new_string</code>：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:s/old_string/new_string/g</span><br></pre></td></tr></table></figure>
+        <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL-DR"></a>TL-DR</h2><p>函数<code>COLLECT_LIST</code>用于将多行数据聚合为一个数组，其语法为：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">COLLECT_LIST(expression)</span><br></pre></td></tr></table></figure>
 
-<p>将当前文件所有的<code>old_string</code>替换为<code>new_string</code>：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:%s/old_string/new_string/g</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li><code>expression</code>：待聚合的列或表达式。</li>
+</ul>
+<p>常见注意事项：</p>
+<ol>
+<li><code>COLLECT_LIST</code>函数默认会忽略掉<code>NULL</code>值，如果想保留<code>NULL</code>值可以考虑使用<code>COALESCE</code>函数进行预处理。</li>
+<li><code>COLLECT_LIST</code>函数生成的结果顺序并不固定，可以通过<code>ARRAY_SORT</code>函数或者是子查询的方式来对结果进行排序。</li>
+</ol>
 <span id="more"></span>
 
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>vim中的字符串替换是通过<code>:substitute</code>(<code>:s</code>)来实现的，格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:[range]s/&#123;pattern&#125;/&#123;string&#125;/[flags]</span><br></pre></td></tr></table></figure>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p><code>COLLECT_LIST</code>函数常见于<code>Spark SQL</code>、<code>Hive</code>、<code>PostgreSQL</code>等主流数据库中，它会将指定列的值按照分组条件合并为一个数组，其基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">COLLECT_LIST(expression)</span><br></pre></td></tr></table></figure>
 
-<p>这个命令会在指定范围（<code>range</code>）内搜索所有满足<code>pattern</code>的字符串，并将其替换为<code>string</code>。</p>
-<p>其中共有四个参数可以进行调整，包括两个必填参数<code>pattern</code>、<code>string</code>，和两个可选参数<code>range</code>、<code>flags</code>。</p>
-<p>接下来我们一个一个介绍。</p>
-<h3 id="range"><a href="#range" class="headerlink" title="[range]"></a>[range]</h3><p>先从最简单的使用方式开始，如果不指定<code>range</code>和<code>flags</code>，上面的命令就会变成这样：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:s/&#123;pattern&#125;/&#123;string&#125;/</span><br></pre></td></tr></table></figure>
-
-<p>它会把当前光标所在行中第一个满足<code>pattern</code>的字符串替换为<code>string</code>。（<strong>无论光标在行中什么位置</strong>）</p>
-<p>例如有如下一行文本：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over the quick dog.</span><br></pre></td></tr></table></figure>
-
-<p>现在我们想将其中的第一个<code>quick</code>替换为<code>slow</code>，可以在vim中输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:s/quick/slow/</span><br></pre></td></tr></table></figure>
-
-<p>替换后的文本如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The slow brown fox jumps over the quick dog.</span><br></pre></td></tr></table></figure>
-
-<p>有的时候我们想要替换掉文件中每一行第一个符合<code>pattern</code>的字符串，可以将<code>range</code>指定为<code>%</code>。</p>
-<p>首先将之前的文本扩写一行：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over the quick dog.</span><br><span class="line">The quick red fox jumps over the lazy <span class="built_in">cat</span>.</span><br></pre></td></tr></table></figure>
-
-<p>这次，我们想把文本中每一行第一次出现的<code>quick</code>都改成<code>slow</code>，可以输入如下命令来实现：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:%s/quick/slow/</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The slow brown fox jumps over the quick dog.</span><br><span class="line">The slow red fox jumps over the lazy <span class="built_in">cat</span>.</span><br></pre></td></tr></table></figure>
-
-<p>此外，我们也可以指定一个具体的搜索范围来进行查找和替换。对于如下文本：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over the quick dog.</span><br><span class="line">The quick red fox jumps over the lazy <span class="built_in">cat</span>.</span><br><span class="line">The quick yellow fox jumps over the lazy rat.</span><br><span class="line">The quick black fox jumps over the lazy monkey.</span><br><span class="line">The quick green fox jumps over the lazy pig.</span><br></pre></td></tr></table></figure>
-
-<p>如果我们想把其中第2至4行里的<code>fox</code>改为<code>rabbit</code>，可以输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:2,4s/fox/rabbit/</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over the quick dog.</span><br><span class="line">The quick red rabbit jumps over the lazy <span class="built_in">cat</span>.</span><br><span class="line">The quick yellow rabbit jumps over the lazy rat.</span><br><span class="line">The quick black rabbit jumps over the lazy monkey.</span><br><span class="line">The quick green fox jumps over the lazy pig.</span><br></pre></td></tr></table></figure>
-
-<p>如果光标在第3行，我们想将从第3行到文件末尾的<code>quick</code>都改为<code>slow</code>，可以输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:.,<span class="variable">$s</span>/quick/slow/</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over the quick dog.</span><br><span class="line">The quick red fox jumps over the lazy <span class="built_in">cat</span>.</span><br><span class="line">The slow yellow fox jumps over the lazy rat.</span><br><span class="line">The slow black fox jumps over the lazy monkey.</span><br><span class="line">The slow green fox jumps over the lazy pig.</span><br></pre></td></tr></table></figure>
-
-<p>我们还可以将搜索范围设定为光标所在行开始n行内，例如光标在第1行，我们想将第1行至第3行中所有的<code>the</code>改为<code>a</code>，可以通过输入如下命令来实现：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:.,+2s/the/a/</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over a quick dog.</span><br><span class="line">The quick red fox jumps over a lazy <span class="built_in">cat</span>.</span><br><span class="line">The quick yellow fox jumps over a lazy rat.</span><br><span class="line">The quick black fox jumps over the lazy monkey.</span><br><span class="line">The quick green fox jumps over the lazy pig.</span><br></pre></td></tr></table></figure>
-
-<h3 id="pattern"><a href="#pattern" class="headerlink" title="{pattern}"></a>{pattern}</h3><p>通常<code>pattern</code>会匹配所有满足要求的字符串，假设我们将<code>pattern</code>指定为<code>the</code>，那么所有包含<code>the</code>的字符串的都会被匹配出来。（比如<code>the</code>，<code>there</code>, <code>whether</code>等）</p>
-<p>如果我们想要完全匹配单词<code>the</code>，可以用<code>\&lt;</code>和<code>\&gt;</code>指定：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:s/\&lt;the\&gt;/a/</span><br></pre></td></tr></table></figure>
-
-<p>上面这条命令就可以只把<code>the</code>替换为<code>a</code>，而不会匹配到其他包含<code>the</code>的字符串了。</p>
-<p>此外，<a href="/2024/05/27/regular-expression-cheatsheet/" title="正则表达式速查表">正则表达式</a>也可以用来作为<code>pattern</code>的搜索样式。</p>
-<h3 id="string"><a href="#string" class="headerlink" title="{string}"></a>{string}</h3><p>如果我们不输入<code>string</code>，则会删除第一个满足<code>pattern</code>的字符串，比如对于文本：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over the quick dog.</span><br></pre></td></tr></table></figure>
-
-<p>我们想要删掉第一个出现的<code>quick</code>，可以用下面这条命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:s/quick//</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The  brown fox jumps over the quick dog.</span><br></pre></td></tr></table></figure>
-
-<h3 id="flags"><a href="#flags" class="headerlink" title="[flags]"></a>[flags]</h3><p><code>flags</code>里面常用的参数包括<code>g</code>、<code>i</code>和<code>c</code>。</p>
-<h4 id="g"><a href="#g" class="headerlink" title="g"></a>g</h4><p>如果想替换掉指定<code>range</code>内所有匹配的字符串，可以用<code>g</code>（g表示global）。</p>
-<p>例如，对于文本：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over the quick dog.</span><br></pre></td></tr></table></figure>
-
-<p>我们想将文本中所有的<code>quick</code>都替换为<code>slow</code>，可以输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:s/quick/slow/g</span><br></pre></td></tr></table></figure>
-
-<p>得到的结果如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The slow brown fox jumps over the slow dog.</span><br></pre></td></tr></table></figure>
-
-<h4 id="i"><a href="#i" class="headerlink" title="i"></a>i</h4><p><code>i</code>标签可以忽略大小写敏感。还是下面这段文本：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The quick brown fox jumps over the quick dog.</span><br></pre></td></tr></table></figure>
-
-<p>我们想把所有的<code>the</code>都替换为<code>a</code>（无论大小写），可以用下面的命令来实现：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:s/the/a/gi</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">a quick brown fox jumps over a quick dog.</span><br></pre></td></tr></table></figure>
-
-<h4 id="c"><a href="#c" class="headerlink" title="c"></a>c</h4><p><code>c</code>标签会要求我们在每次操作的时候进行确认。让我们回到上一段<code>i</code>标签的例子中，如果将<code>c</code>加入到输入的命令中：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">:s/the/a/gic</span><br></pre></td></tr></table></figure>
-
-<p>回车后我们会看到如下提示：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">replace with a (y/n/a/q/l/^E/^Y)?</span><br></pre></td></tr></table></figure>
-
-<p>其中每个选项的解释如下：</p>
 <ul>
-<li>y：确认替换</li>
-<li>n：跳到下一个匹配项（需要配合<code>g</code>标签）</li>
-<li>a：全部替换</li>
-<li>q：退出</li>
-<li>l：替换当前匹配项并退出</li>
-<li>^E（CTRL+E）：向上翻滚屏幕</li>
-<li>^Y（CTRL+Y）：向下翻滚屏幕</li>
+<li><code>expression</code>：待聚合的列或表达式。</li>
 </ul>
-<p>这样就可以针对每一个匹配项进行相应的操作了。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>我们首先创建一个示例表并插入一些数据。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 创建示例表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employees (</span><br><span class="line">  dept_id  <span class="type">INT</span>,</span><br><span class="line">  emp_name STRING,</span><br><span class="line">  salary   <span class="type">INT</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入示例数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employees <span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>, <span class="string">&#x27;David&#x27;</span>, <span class="number">8000</span>),</span><br><span class="line">(<span class="number">1</span>, <span class="string">&#x27;Charlie&#x27;</span>, <span class="number">9000</span>),</span><br><span class="line">(<span class="number">2</span>, <span class="string">&#x27;Alice&#x27;</span>, <span class="number">7000</span>),</span><br><span class="line">(<span class="number">2</span>, <span class="keyword">NULL</span>, <span class="number">6000</span>),</span><br><span class="line">(<span class="number">3</span>, <span class="string">&#x27;Ele&#x27;</span>, <span class="number">8000</span>),</span><br><span class="line">(<span class="number">3</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="keyword">NULL</span>); </span><br></pre></td></tr></table></figure>
+
+<p>表中数据如下：</p>
+<table>
+<thead>
+<tr>
+<th>dept_id</th>
+<th>emp_name</th>
+<th>salary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Daivd</td>
+<td>8000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Charlie</td>
+<td>9000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Alice</td>
+<td>7000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>NULL</td>
+<td>6000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Ele</td>
+<td>8000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Bob</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<p>假设我们想要收集员工的姓名列表并按部门分组，可以使用<code>COLLECT_LIST</code>函数来实现：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> dept_id,</span><br><span class="line">       COLLECT_LIST(emp_name) <span class="keyword">AS</span> emp_names</span><br><span class="line">  <span class="keyword">FROM</span> employees</span><br><span class="line"> <span class="keyword">GROUP</span> <span class="keyword">BY</span> dept_id</span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> dept_id;</span><br></pre></td></tr></table></figure>
+
+<p>执行上述查询后，结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>dept_id</th>
+<th>emp_names</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>[“David”,”Charlie”]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[“Alice”]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>[“Ele”,”Bob”]</td>
+</tr>
+</tbody></table>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="1-NULL值的处理"><a href="#1-NULL值的处理" class="headerlink" title="1. NULL值的处理"></a>1. <code>NULL</code>值的处理</h3><p><code>COLLECT_LIST</code>函数会自动忽略<code>NULL</code>值。例如上面的示例中，<code>emp_name</code>为<code>NULL</code>的员工并未被计算进结果中。</p>
+<p>如果希望将<code>NULL</code>值的情况也包含进结果内，可以在使用<code>COLLECT_LIST</code>函数之前先使用<code>COALESCE</code>函数将<code>NULL</code>值进行替换：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> dept_id</span><br><span class="line">       ,COLLECT_LIST(<span class="built_in">COALESCE</span>(emp_name, <span class="string">&#x27;Unknown&#x27;</span>)) <span class="keyword">AS</span> emp_name</span><br><span class="line">  <span class="keyword">FROM</span> employees</span><br><span class="line"> <span class="keyword">GROUP</span> <span class="keyword">BY</span> dept_id</span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> dept_id;</span><br></pre></td></tr></table></figure>
+
+<p>如此，<code>dept_id</code>为<code>2</code>对应的<code>emp_names</code>里便多了一条<code>Unknown</code>结果。</p>
+<table>
+<thead>
+<tr>
+<th>dept_id</th>
+<th>emp_names</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>[“David”,”Charlie”]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[“Unknown”,”Alice”]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>[“Ele”,”Bob”]</td>
+</tr>
+</tbody></table>
+<h3 id="2-数组元素的顺序"><a href="#2-数组元素的顺序" class="headerlink" title="2. 数组元素的顺序"></a>2. 数组元素的顺序</h3><p><code>COLLECT_LIST</code>函数不能保证结果中数组元素的顺序是有序的。</p>
+<p>如果需要结果有序可以考虑对聚合后的数据使用<code>SORT_ARRAY</code>函数进行排序：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> dept_id</span><br><span class="line">       ,SORT_ARRAY(COLLECT_LIST(emp_name)) <span class="keyword">AS</span> sorted_emp_name</span><br><span class="line">  <span class="keyword">FROM</span> employees</span><br><span class="line"> <span class="keyword">GROUP</span> <span class="keyword">BY</span> dept_id</span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> dept_id;</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>dept_id</th>
+<th>emp_names</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>[“Charlie”,”David”]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[“Alice”,”Unknown”]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>[“Bob”,”Ele”]</td>
+</tr>
+</tbody></table>
+<p>此外，在查询中先使用<code>ORDER BY</code>子句对数据进行排序，然后再使用<code>COLLECT_LIST</code>函数也可以实现类似的效果：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> dept_id</span><br><span class="line">       ,COLLECT_LIST(emp_name) <span class="keyword">AS</span> sorted_emp_name</span><br><span class="line">  <span class="keyword">FROM</span> (</span><br><span class="line">       <span class="keyword">SELECT</span> dept_id</span><br><span class="line">              ,<span class="built_in">COALESCE</span>(emp_name, &quot;Unknown&quot;) <span class="keyword">AS</span> emp_name</span><br><span class="line">         <span class="keyword">FROM</span> employees</span><br><span class="line">        <span class="keyword">ORDER</span> <span class="keyword">BY</span> dept_id, emp_name</span><br><span class="line">       )</span><br><span class="line"> <span class="keyword">GROUP</span> <span class="keyword">BY</span> dept_id</span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> dept_id;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>dept_id</th>
+<th>emp_names</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>[“Charlie”,”David”]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[“Alice”,”Unknown”]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>[“Bob”,”Ele”]</td>
+</tr>
+</tbody></table>
 <center>- EOF -</center>
     </div>
 
@@ -367,22 +415,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Linux/" rel="tag"># Linux</a>
-              <a href="/tags/vim/" rel="tag"># vim</a>
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/10/12/excel-doesnot-recognize-the-data-until-double-click/" rel="prev" title="Excel日期格式修改后需双击才能生效问题的批量解决方法">
-                  <i class="fa fa-chevron-left"></i> Excel日期格式修改后需双击才能生效问题的批量解决方法
+                <a href="/2025/02/24/sql-coalesce/" rel="prev" title="COALESCE函数的用法及常见注意事项">
+                  <i class="fa fa-chevron-left"></i> COALESCE函数的用法及常见注意事项
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/01/13/A-Brief-Analysis-of-Linux-Scheduled-Task-Scheduling/" rel="next" title="浅析Linux定时任务调度 - crontab">
-                  浅析Linux定时任务调度 - crontab <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
