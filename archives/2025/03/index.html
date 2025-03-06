@@ -40,28 +40,23 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="引言我们在 Linux 服务器上进行开发或运维的时候经常会用到df -hT命令来查看磁盘空间的使用情况，本文主要对其输出结果进行讲解。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="一条命令洞悉 Linux 磁盘全貌：深入了解 df 命令的输出结果">
-<meta property="og:url" content="http://example.com/2024/05/17/A-Deep-Dive-into-the-df-Command-Output/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="知行合一">
+<meta property="og:url" content="http://example.com/archives/2025/03/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="引言我们在 Linux 服务器上进行开发或运维的时候经常会用到df -hT命令来查看磁盘空间的使用情况，本文主要对其输出结果进行讲解。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-16T22:15:08.000Z">
-<meta property="article:modified_time" content="2024-08-29T11:40:27.000Z">
 <meta property="article:author" content="atlrwt">
-<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2024/05/17/A-Deep-Dive-into-the-df-Command-Output/">
+<link rel="canonical" href="http://example.com/archives/2025/03/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/05/17/A-Deep-Dive-into-the-df-Command-Output/","path":"2024/05/17/A-Deep-Dive-into-the-df-Command-Output/","title":"一条命令洞悉 Linux 磁盘全貌：深入了解 df 命令的输出结果"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2025/03/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>一条命令洞悉 Linux 磁盘全貌：深入了解 df 命令的输出结果 | 知行合一</title>
+<title>归档 | 知行合一</title>
   
 
 
@@ -94,7 +89,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">知行合一</p>
+      <h1 class="site-title">知行合一</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">止于至善</p>
@@ -121,7 +116,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -134,7 +129,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#df%E5%91%BD%E4%BB%A4"><span class="nav-text">df命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LVM"><span class="nav-text">LVM</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -178,172 +172,49 @@
 
     </div>
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner archive posts-collapse">
 
 
   
-
-
-<div class="post-block">
   
   
+  <div class="post-block">
+    <div class="post-content">
+      <div class="collection-title">
+        <span class="collection-header">嗯..! 目前共计 30 篇日志。 继续努力。</span>
+      </div>
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/17/A-Deep-Dive-into-the-df-Command-Output/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="atlrwt">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="知行合一">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="一条命令洞悉 Linux 磁盘全貌：深入了解 df 命令的输出结果 | 知行合一">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          一条命令洞悉 Linux 磁盘全貌：深入了解 df 命令的输出结果
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-05-17 06:15:08" itemprop="dateCreated datePublished" datetime="2024-05-17T06:15:08+08:00">2024-05-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-08-29 19:40:27" itemprop="dateModified" datetime="2024-08-29T19:40:27+08:00">2024-08-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Ops/" itemprop="url" rel="index"><span itemprop="name">Ops</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>我们在 Linux 服务器上进行开发或运维的时候经常会用到<code>df -hT</code>命令来查看磁盘空间的使用情况，本文主要对其输出结果进行讲解。</p>
-<span id="more"></span>
-
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="df命令"><a href="#df命令" class="headerlink" title="df命令"></a><code>df</code>命令</h3><p><code>df</code> (disk free) 命令用于显示磁盘空间的使用情况。在实际使用中，我们通常会带上<code>-h</code>和<code>-T</code>两个参数让输出结果更加易读。</p>
-<ul>
-<li>-h, –human-readable：将 Size 以 MB、GB 等格式输出。</li>
-<li>-T, –print-type：输出 Filesystem 的类型（Type）。</li>
-</ul>
-<p>例如，我们通过<code>df -hT</code>命令查看一台 Linux server。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~$ <span class="built_in">df</span> -hT</span><br><span class="line">Filesystem               Type      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs                 devtmpfs   16G  8.0K   16G   1% /dev</span><br><span class="line">tmpfs                    tmpfs      16G  240K   16G   1% /dev/shm</span><br><span class="line">tmpfs                    tmpfs      16G  2.5M   16G   1% /run</span><br><span class="line">tmpfs                    tmpfs      16G     0   16G   0% /sys/fs/cgroup</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /</span><br><span class="line">/dev/sda2                vfat       20M  188K   20M   1% /boot/efi</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /boot/grub2/x86_64-efi</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /srv</span><br><span class="line">/dev/mapper/vg-lvscripts ext4      974M   24K  907M   1% /scripts</span><br><span class="line">/dev/mapper/vg-lvnsr     ext4      2.0G   24K  1.8G   1% /nsr</span><br><span class="line">/dev/mapper/vg-lvtmp     ext4      2.9G  856M  1.9G  31% /tmp</span><br><span class="line">/dev/mapper/vg-lvservice ext4       30G  1.1G   27G   4% /service</span><br><span class="line">/dev/mapper/vg-lvdata    ext4       98G  4.8G   89G   6% /data</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /var</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /opt</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /.snapshots</span><br><span class="line">/dev/mapper/vg-lvcrash   ext4      7.8G   24K  7.4G   1% /var/crash</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /home</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /usr/local</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /var/log</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /var/tmp</span><br><span class="line">/dev/sda3                btrfs      42G   17G   25G  41% /var/log/audit</span><br><span class="line">tmpfs                    tmpfs     3.2G     0  3.2G   0% /run/user/0</span><br><span class="line">tmpfs                    tmpfs     3.2G     0  3.2G   0% /run/user/1001</span><br></pre></td></tr></table></figure>
-
-<p><code>df</code>命令会打印出如下几列信息：</p>
-<blockquote>
-<ul>
-<li>文件系统（Filesystem）：显示磁盘分区的标识。</li>
-<li>类型（Type）：文件系统的类型。</li>
-<li>容量（Size）：分区总大小。</li>
-<li>已用（Used）：已使用的空间量。</li>
-<li>可用（Avail）：剩余的可用空间。</li>
-<li>使用%（Use%）：已使用的百分比。</li>
-<li>挂载点（Mounted on）：文件系统挂载的位置。</li>
-</ul>
-</blockquote>
-<p>我们可以将输出结果的文件系统分为四类：</p>
-<ul>
-<li>物理硬盘（如&#x2F;dev&#x2F;sd2）</li>
-<li>LVM：一个灵活的磁盘管理方式，允许用户从物理硬盘中创建逻辑卷（如&#x2F;dev&#x2F;mapper&#x2F;vg-lvdata）</li>
-<li>tmpfs：一种基于内存的文件系统，可以用于存储临时文件，提高访问速度。</li>
-<li>devtmpfs：主要用于挂载设备文件的文件系统，通常自动挂载在&#x2F;dev下。</li>
-</ul>
-<p>其中，LVM值得我们进一步展开聊一聊。</p>
-<h3 id="LVM"><a href="#LVM" class="headerlink" title="LVM"></a>LVM</h3><p>LVM (Logic Volume Manager)：逻辑卷管理，可以弹性的调整 Filesystem 的容量。</p>
-<p>LVM 的做法是先将几个实体的 partition（或 disk）通过软件整合成一块大的卷组（Volume Group），然后根据实际需求将卷组分区为可使用的逻辑卷（Logical Volume），之后就可以挂载使用了。</p>
-<p>上面这段话涉及到了几个概念：</p>
-<ul>
-<li><p>物理卷（Physical Volume, PV）：指硬盘或者硬盘分区，它可以被用来创建逻辑卷。在 Linux 操作系统中，特别是在使用 LVM 时，物理卷是构建更复杂存储解决方案的基础。我们可以把多个物理卷组合成一个卷组（Volume Group），进而创建一个或多个逻辑卷（Logical Volume），这样可以更灵活地管理存储空间。</p>
-</li>
-<li><p>卷组（Volume Group, VG）：通过LVM组合起来的大磁盘。</p>
-</li>
-<li><p>逻辑卷（Logical Volume, LV）：通过LVM组合起来的VG并不能直接用于Linux系统中，需要切分为LV才能被格式化使用。</p>
-</li>
-<li><p>物理区域（Physical Extent, PE）：LVM的最小储存区域，默认大小为4MB。因此，一个LVM的总容量可以表示为PE*PE的个数，例如某个LVM共有65536个使用默认容量的PE，则其总容量为4MB * 65536 &#x2F; 1024MB &#x3D; 256GB。</p>
-</li>
-</ul>
-<p>在 Linux 系统中，我们能够通过一些命令来查看 PV、VG 和 LV 的使用情况。</p>
-<p>还是以开头这台机器为例，我们可以通过<code>pvscan</code>来搜寻系统里面任何具有 PV 的磁盘。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~$ sudo pvscan</span><br><span class="line">  PV /dev/sdb VG vg lvm2 [215.00 GiB / 3.00 GiB free]</span><br><span class="line">  Total: 1 [215.00 GiB] / <span class="keyword">in</span> use: 1 [215.00 GiB] / <span class="keyword">in</span> no VG: 0 [0 ]</span><br></pre></td></tr></table></figure>
-
-<p>可见，我们系统里面的 &#x2F;dev&#x2F;sdb 已经是 PV 格式，共有 215GiB 的空间。</p>
-<p>还可以通过<code>pvdisplay</code>命令显示系统里面每个 PV 的信息。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~$ sudo pvdisplay</span><br><span class="line">  --- Physical volume ---</span><br><span class="line">  PV Name /dev/sdb</span><br><span class="line">  VG Name vg</span><br><span class="line">  PV Size 215.00 GiB / not usable 4.00 MiB</span><br><span class="line">  Allocatable <span class="built_in">yes</span></span><br><span class="line">  PE Size 4.00 MiB</span><br><span class="line">  Total PE 55039</span><br><span class="line">  Free PE 767</span><br><span class="line">  Allocated PE 54272</span><br><span class="line">  PV UUID xxxxxxxxxxx</span><br></pre></td></tr></table></figure>
-
-<p>类似的，我们也可以通过<code>vgscan</code>和<code>vgdisplay</code>命令来查看 VG 的信息。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~$ sudo vgscan</span><br><span class="line">  Reading volume <span class="built_in">groups</span> from cache.</span><br><span class="line">  Found volume group <span class="string">&quot;vg&quot;</span> using metadata <span class="built_in">type</span> lvm2</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~$ sudo vgdisplay</span><br><span class="line">  --- Volume group ---</span><br><span class="line">  VG Name vg</span><br><span class="line">  System ID</span><br><span class="line">  Format lvm2</span><br><span class="line">  Metadata Areas 1</span><br><span class="line">  Metadata Sequence No 8</span><br><span class="line">  VG Access <span class="built_in">read</span>/write</span><br><span class="line">  VG Status resizable</span><br><span class="line">  MAX LV 0</span><br><span class="line">  Cur LV 7</span><br><span class="line">  Open LV 7</span><br><span class="line">  Max PV 0</span><br><span class="line">  Cur PV 1</span><br><span class="line">  Act PV 1</span><br><span class="line">  VG Size 215.00 GiB                    </span><br><span class="line">  PE Size 4.00 MiB</span><br><span class="line">  Total PE 55039</span><br><span class="line">  Alloc PE / Size 54272 / 212.00 GiB</span><br><span class="line">  Free PE / Size 767 / 3.00 GiB</span><br><span class="line">  VG UUID xxxxxxxxxxx</span><br></pre></td></tr></table></figure>
-
-<p>同样，LV 也有<code>lvscan</code>和<code>lvdisplay</code>这两个命令可供我们使用。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~$ sudo lvscan</span><br><span class="line">  ACTIVE <span class="string">&#x27;/dev/vg/lvservice&#x27;</span> [50.00 GiB] inherit</span><br><span class="line">  ACTIVE <span class="string">&#x27;/dev/vg/lvdata&#x27;</span> [100.00 GiB] inherit</span><br><span class="line">  ACTIVE <span class="string">&#x27;/dev/vg/lvtmp&#x27;</span> [3.00 GiB] inherit</span><br><span class="line">  ACTIVE <span class="string">&#x27;/dev/vg/lvscripts&#x27;</span> [1.00 GiB] inherit</span><br><span class="line">  ACTIVE <span class="string">&#x27;/dev/vg/lvnsr&#x27;</span> [2.00 GiB] inherit</span><br><span class="line">  ACTIVE <span class="string">&#x27;/dev/vg/lvvarcrash&#x27;</span> [8.00 GiB] inherit</span><br><span class="line">  ACTIVE <span class="string">&#x27;/dev/vg/lvswap&#x27;</span> [48.00 GiB] inherit</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~$ sudo lvdisplay</span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path /dev/vg/lvservice</span><br><span class="line">  LV Name lvservice</span><br><span class="line">  VG Name vg</span><br><span class="line">  LV UUID xxxxxxxxxxxxxxx</span><br><span class="line">  LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">  LV Creation host, time ubuntu-server, 2024-03-14 13:28:57 +0800</span><br><span class="line">  LV Status available</span><br><span class="line">  <span class="comment"># open 1</span></span><br><span class="line">  LV Size 50.00 GiB</span><br><span class="line">  Current LE 12800</span><br><span class="line">  Segments 1</span><br><span class="line">  Allocation inherit</span><br><span class="line">  Read ahead sectors auto</span><br><span class="line">  - currently <span class="built_in">set</span> to 1024</span><br><span class="line">  Block device 254:1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path /dev/vg/lvdata</span><br><span class="line">  LV Name lvdata</span><br><span class="line">  VG Name vg</span><br><span class="line">  LV UUID xxxxxxxxxxxxxx</span><br><span class="line">  LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">  LV Creation host, time ubuntu-server, 2024-03-14 13:29:12 +0800</span><br><span class="line">  LV Status available</span><br><span class="line">  <span class="comment"># open 1</span></span><br><span class="line">  LV Size 100.00 GiB</span><br><span class="line">  Current LE 25600</span><br><span class="line">  Segments 1</span><br><span class="line">  Allocation inherit</span><br><span class="line">  Read ahead sectors auto</span><br><span class="line">  - currently <span class="built_in">set</span> to 1024</span><br><span class="line">  Block device 254:2</span><br><span class="line"></span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path /dev/vg/lvtmp</span><br><span class="line">  LV Name lvtmp</span><br><span class="line">  VG Name vg</span><br><span class="line">  LV UUID xxxxxxxxxx</span><br><span class="line">  LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">  LV Creation host, time ubuntu-server, 2024-03-14 +0800</span><br><span class="line">  LV Status available</span><br><span class="line">  <span class="comment"># open 1</span></span><br><span class="line">  LV Size 3.00 GiB</span><br><span class="line">  Current LE 768</span><br><span class="line">  Segments 1</span><br><span class="line">  Allocation inherit</span><br><span class="line">  Read ahead sectors auto</span><br><span class="line">  - currently <span class="built_in">set</span> to 1024</span><br><span class="line">  Block device 254:3</span><br><span class="line"></span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path /dev/vg/lvscripts</span><br><span class="line">  LV Name lvscripts</span><br><span class="line">  VG Name vg</span><br><span class="line">  LV UUID xxxxxxxxxxxxx</span><br><span class="line">  LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">  LV Creation host, time ubuntu-server, 2024-03-14 13:29:52 +0800</span><br><span class="line">  LV Status available</span><br><span class="line">  <span class="comment"># open 1</span></span><br><span class="line">  LV Size 1.00 GiB</span><br><span class="line">  Current LE 256</span><br><span class="line">  Segments 1</span><br><span class="line">  Allocation inherit</span><br><span class="line">  Read ahead sectors auto</span><br><span class="line">  - currently <span class="built_in">set</span> to 1024</span><br><span class="line">  Block device 254:4</span><br><span class="line"></span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path /dev/vg/lvnsr</span><br><span class="line">  LV Name lvnsr</span><br><span class="line">  VG Name vg</span><br><span class="line">  LV UUID xxxxxxxxxxxxx</span><br><span class="line">  LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">  LV Creation host, time ubuntu-server, 2024-03-14 13:30:09 +0800</span><br><span class="line">  LV Status available</span><br><span class="line">  <span class="comment"># open 1</span></span><br><span class="line">  LV Size 2.00 GiB</span><br><span class="line">  Current LE 512</span><br><span class="line">  Segments 1</span><br><span class="line">  Allocation inherit</span><br><span class="line">  Read ahead sectors auto</span><br><span class="line">  - currently <span class="built_in">set</span> to 1024</span><br><span class="line">  Block device 254:5</span><br><span class="line"></span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path /dev/vg/lvvarcrash</span><br><span class="line">  LV Name lvvarcrash</span><br><span class="line">  VG Name vg</span><br><span class="line">  LV UUID xxxxxxxxxxxxxx</span><br><span class="line">  LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">  LV Creation host, time ubuntu-server, 2024-03-14 13:30:51 +0800</span><br><span class="line">  LV Status available</span><br><span class="line">  <span class="comment"># open 1</span></span><br><span class="line">  LV Size 8.00 GiB</span><br><span class="line">  Current LE 2048</span><br><span class="line">  Segments 1</span><br><span class="line">  Allocation inherit</span><br><span class="line">  Read ahead sectors auto</span><br><span class="line">  - currently <span class="built_in">set</span> to 1024</span><br><span class="line">  Block device 254:6</span><br><span class="line"></span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path /dev/vg/lvswap</span><br><span class="line">  LV Name lvswap</span><br><span class="line">  VG Name vg</span><br><span class="line">  LV UUID xxxxxxxxxxxxx</span><br><span class="line">  LV Write Access <span class="built_in">read</span>/write</span><br><span class="line">  LV Creation host, time ubuntu-server, 2024-03-14 13:31:57 +0800</span><br><span class="line">  LV Status available</span><br><span class="line">  <span class="comment"># open 2</span></span><br><span class="line">  LV Size 48.00 GiB</span><br><span class="line">  Current LE 12288</span><br><span class="line">  Segments 1</span><br><span class="line">  Allocation inherit</span><br><span class="line">  Read ahead sectors auto</span><br><span class="line">  - currently <span class="built_in">set</span> to 1024</span><br><span class="line">  Block device 254:0</span><br></pre></td></tr></table></figure>
-
-
-<center>- EOF -</center>
+      
+    <div class="collection-year">
+      <span class="collection-header">2025</span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2025-03-06T20:46:46+08:00"
+              content="2025-03-06">
+          03-06
+        </time>
+      </div>
 
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Linux/" rel="tag"># Linux</a>
-          </div>
+      <div class="post-title">
+          <a class="post-title-link" href="/2025/03/06/sql-collect-set/" itemprop="url">
+            <span itemprop="name">Spark SQL中COLLECT_SET函数的用法及常见注意事项</span>
+          </a>
+      </div>
 
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2024/05/11/SQL-Server-Data-Analysis-Easily-Calculate-Month-over-Month-Sales-Growth/" rel="prev" title="SQL Server数据分析：用窗口函数轻松计算销售数据的月环比增长率">
-                  <i class="fa fa-chevron-left"></i> SQL Server数据分析：用窗口函数轻松计算销售数据的月环比增长率
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2024/05/17/Guide-to-Offline-Installation-of-Python-Third-Party-Libraries/" rel="next" title="Python 第三方依赖包的离线安装指南">
-                  Python 第三方依赖包的离线安装指南 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
+      
+    </header>
   </article>
-</div>
 
 
-
-
-
+    </div>
+  </div>
+  
+  
+  
 
 </div>
   </main>
