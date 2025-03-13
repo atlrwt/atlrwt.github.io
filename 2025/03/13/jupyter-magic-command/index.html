@@ -40,28 +40,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="写在前面本文用于记录如何通过命令行工具openssl的x509命令查看Linux SSL的证书有效期。">
+    <meta name="description" content="TL-DR在 Jupyter Notebook 中存在两种不同的命令：! 和 %，其中： ! 用于在 Jupyter Notebook 中直接运行系统 Shell 命令。 % 称为魔法命令，用于增强 Jupyter Notebook 的功能，具体可以分为两种：  单行魔法命令：以 % 开头，作用于单行代码。 单元格魔法命令：以 %% 开头，作用于整个单元格。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux SSL证书有效期查询">
-<meta property="og:url" content="http://example.com/2024/04/21/openssl-x509/index.html">
+<meta property="og:title" content="Jupyter Notebook 中系统命令和魔法命令的使用方法">
+<meta property="og:url" content="http://example.com/2025/03/13/jupyter-magic-command/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="写在前面本文用于记录如何通过命令行工具openssl的x509命令查看Linux SSL的证书有效期。">
+<meta property="og:description" content="TL-DR在 Jupyter Notebook 中存在两种不同的命令：! 和 %，其中： ! 用于在 Jupyter Notebook 中直接运行系统 Shell 命令。 % 称为魔法命令，用于增强 Jupyter Notebook 的功能，具体可以分为两种：  单行魔法命令：以 % 开头，作用于单行代码。 单元格魔法命令：以 %% 开头，作用于整个单元格。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-21T05:52:35.000Z">
-<meta property="article:modified_time" content="2024-08-29T11:40:46.000Z">
+<meta property="article:published_time" content="2025-03-13T12:19:51.000Z">
+<meta property="article:modified_time" content="2025-03-13T12:47:43.802Z">
 <meta property="article:author" content="atlrwt">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2024/04/21/openssl-x509/">
+<link rel="canonical" href="http://example.com/2025/03/13/jupyter-magic-command/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/04/21/openssl-x509/","path":"2024/04/21/openssl-x509/","title":"Linux SSL证书有效期查询"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/13/jupyter-magic-command/","path":"2025/03/13/jupyter-magic-command/","title":"Jupyter Notebook 中系统命令和魔法命令的使用方法"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Linux SSL证书有效期查询 | 知行合一</title>
+<title>Jupyter Notebook 中系统命令和魔法命令的使用方法 | 知行合一</title>
   
 
 
@@ -134,7 +134,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#openssl-x509%E5%91%BD%E4%BB%A4"><span class="nav-text">openssl x509命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%8F%8F%E8%BF%B0"><span class="nav-text">命令描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-text">示例</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TL-DR"><span class="nav-text">TL-DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%EF%BC%88-%EF%BC%89"><span class="nav-text">系统命令（!）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AD%94%E6%B3%95%E5%91%BD%E4%BB%A4%EF%BC%88-%E5%92%8C-%EF%BC%89"><span class="nav-text">魔法命令（%和%%）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E8%A1%8C%E9%AD%94%E6%B3%95%E5%91%BD%E4%BB%A4%EF%BC%88-%EF%BC%89"><span class="nav-text">单行魔法命令（%）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BB%A3%E7%A0%81%E8%AE%A1%E6%97%B6%E7%9B%B8%E5%85%B3"><span class="nav-text">1. 代码计时相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4%E7%9B%B8%E5%85%B3"><span class="nav-text">2. 历史命令相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%B7%AF%E5%BE%84%E5%92%8C%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%9B%B8%E5%85%B3"><span class="nav-text">3. 路径和文件操作相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%8F%98%E9%87%8F%E5%92%8C%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9B%B8%E5%85%B3"><span class="nav-text">4. 变量和命名空间相关</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%A1%8C%E9%AD%94%E6%B3%95%E5%91%BD%E4%BB%A4%EF%BC%88-%EF%BC%89"><span class="nav-text">多行魔法命令（%%）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BB%A3%E7%A0%81%E4%BF%9D%E5%AD%98%E7%9B%B8%E5%85%B3"><span class="nav-text">1. 代码保存相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%E7%9B%B8%E5%85%B3"><span class="nav-text">2. 代码执行环境相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3"><span class="nav-text">3. 代码分析相关</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -189,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/21/openssl-x509/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/13/jupyter-magic-command/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -202,12 +202,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Linux SSL证书有效期查询 | 知行合一">
+      <meta itemprop="name" content="Jupyter Notebook 中系统命令和魔法命令的使用方法 | 知行合一">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux SSL证书有效期查询
+          Jupyter Notebook 中系统命令和魔法命令的使用方法
         </h1>
 
         <div class="post-meta-container">
@@ -217,15 +217,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2024-04-21 13:52:35" itemprop="dateCreated datePublished" datetime="2024-04-21T13:52:35+08:00">2024-04-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-08-29 19:40:46" itemprop="dateModified" datetime="2024-08-29T19:40:46+08:00">2024-08-29</time>
+      <time title="创建时间：2025-03-13 20:19:51 / 修改时间：20:47:43" itemprop="dateCreated datePublished" datetime="2025-03-13T20:19:51+08:00">2025-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -233,7 +227,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Ops/" itemprop="url" rel="index"><span itemprop="name">Ops</span></a>
+          <a href="/categories/Data-Analysis/" itemprop="url" rel="index"><span itemprop="name">Data Analysis</span></a>
         </span>
     </span>
 
@@ -247,17 +241,79 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>本文用于记录如何通过命令行工具<code>openssl</code>的<code>x509</code>命令查看Linux SSL的证书有效期。</p>
+        <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL-DR"></a>TL-DR</h2><p>在 Jupyter Notebook 中存在两种不同的命令：<code>!</code> 和 <code>%</code>，其中：</p>
+<p><code>!</code> 用于在 Jupyter Notebook 中直接运行系统 Shell 命令。</p>
+<p><code>%</code> 称为魔法命令，用于增强 Jupyter Notebook 的功能，具体可以分为两种：</p>
+<ul>
+<li>单行魔法命令：以 <code>%</code> 开头，作用于单行代码。</li>
+<li>单元格魔法命令：以 <code>%%</code> 开头，作用于整个单元格。</li>
+</ul>
 <span id="more"></span>
 
-<h2 id="openssl-x509命令"><a href="#openssl-x509命令" class="headerlink" title="openssl x509命令"></a>openssl x509命令</h2><p>用于对证书数据进行管理。</p>
-<h3 id="命令描述"><a href="#命令描述" class="headerlink" title="命令描述"></a>命令描述</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ openssl x509 -<span class="keyword">in</span> /path/to/your/certificate.pem -noout -dates</span><br></pre></td></tr></table></figure>
+<h2 id="系统命令（-）"><a href="#系统命令（-）" class="headerlink" title="系统命令（!）"></a>系统命令（<code>!</code>）</h2><p>常用系统命令可以通过 <code>!</code> 来执行，例如我们想查看当前工作目录，可以在 Jupyter Notebook 的单元格内输入 <code>!pwd</code>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">/home/user</span><br></pre></td></tr></table></figure>
 
-<p><code>-in</code>：指定证书文件</p>
-<p><code>-noout</code>：不输出证书的编码部分</p>
-<p><code>-dates</code>：输出证书有效期，包括<code>startdate</code>和<code>enddate</code></p>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>Linux的ssl证书通常保存在<code>/etc/ssl/certs/</code>目录下，我们以其中的Microsoft_RSA_Root_Certificate_Authority_2017.pem为例看一下输出结果。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ openssl x509 -<span class="keyword">in</span> /etc/ssl/certs/Microsoft_RSA_Root_Certificate_Authority_2017.pem -noout -dates</span><br><span class="line">notBefore=Dec 18 22:51:22 2019 GMT</span><br><span class="line">notAfter=Jul 18 23:00:23 2042 GMT</span><br></pre></td></tr></table></figure>
+<p>需要注意的是 <code>!</code> 命令的结果并不会对当前 Notebook 产生实际效果，例如用 <code>!cd</code> 命令切换路径：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!cd /data</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再查看当前工作目录：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">!pwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">/home/user</span><br></pre></td></tr></table></figure>
+
+<p>可以看到路径并没有切换成功，如果想要 <code>cd</code> 命令真正起作用需要使用接下来讲到的魔法命令。</p>
+<h2 id="魔法命令（-和-）"><a href="#魔法命令（-和-）" class="headerlink" title="魔法命令（%和%%）"></a>魔法命令（<code>%</code>和<code>%%</code>）</h2><p>魔法命令是 IPython 提供的特殊命令，以 <code>%</code> 或 <code>%%</code> 开头，能增强 Python 交互环境的功能。</p>
+<p>我们可以使用 <code>%lsmagic</code> 命令查看所有可用的魔法命令。</p>
+<p>接下来将介绍几个常用的魔法命令。</p>
+<h3 id="单行魔法命令（-）"><a href="#单行魔法命令（-）" class="headerlink" title="单行魔法命令（%）"></a>单行魔法命令（<code>%</code>）</h3><p>常用单行魔法命令如下。</p>
+<h4 id="1-代码计时相关"><a href="#1-代码计时相关" class="headerlink" title="1. 代码计时相关"></a>1. 代码计时相关</h4><p><code>%time</code>：用于测量单个语句的执行时间。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%time <span class="built_in">sum</span>([i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000000</span>)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">CPU times: user <span class="number">19.4</span> ms, sys: <span class="number">55.9</span> ms, total: <span class="number">75.3</span> ms</span><br><span class="line">Wall time: <span class="number">74.2</span> ms</span><br><span class="line"><span class="number">499999500000</span></span><br></pre></td></tr></table></figure>
+
+<p><code>%timeit</code>：多次运行单个语句并给出平均执行时间。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%timeit <span class="built_in">sum</span>([i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="number">4.01</span> µs ± <span class="number">59.9</span> ns per loop (mean ± std. dev. of <span class="number">7</span> runs, <span class="number">100000</span> loops each)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-历史命令相关"><a href="#2-历史命令相关" class="headerlink" title="2. 历史命令相关"></a>2. 历史命令相关</h4><p><code>%history</code>：显示历史输入的命令。</p>
+<p>例如我们新建一个 Notebook 并导入一些 Python 模块。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+
+<p>接下来执行 <code>%history</code> 命令：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%history</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">%history</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是这里 <code>%history</code> 命令自身也会被输出。</p>
+<p>我们还可以指定参数来显示特定范围的历史命令，例如显示第 1 条命令：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%history -n <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-路径和文件操作相关"><a href="#3-路径和文件操作相关" class="headerlink" title="3. 路径和文件操作相关"></a>3. 路径和文件操作相关</h4><p><code>%pwd</code>：显示当前工作目录。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%pwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">/home/user</span><br></pre></td></tr></table></figure>
+
+<p><code>%cd</code>：改变当前工作目录。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%cd /data</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">/data</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%pwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">/data</span><br></pre></td></tr></table></figure>
+
+<p>可以看到不同于 <code>!</code> 命令，通过 <code>%</code> 命令我们成功将工作目录从 <code>/home/user</code> 切换到了 <code>/data</code>。</p>
+<h4 id="4-变量和命名空间相关"><a href="#4-变量和命名空间相关" class="headerlink" title="4. 变量和命名空间相关"></a>4. 变量和命名空间相关</h4><p><code>%who</code>：列出当前命名空间中的所有变量。</p>
+<p>我们先给一些变量赋值：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="number">10</span></span><br><span class="line">b = <span class="string">&quot;hello&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来输入 <code>%who</code> 命令：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%who</span><br><span class="line"></span><br><span class="line">a    b</span><br></pre></td></tr></table></figure>
+
+<p><code>%whos</code>：列出当前命名空间中的所有变量，并显示其类型和值的简要信息。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%whos</span><br><span class="line"></span><br><span class="line">Variable   <span class="type">Type</span>      Data/Info</span><br><span class="line">------------------------------</span><br><span class="line">a          <span class="built_in">int</span>       <span class="number">10</span></span><br><span class="line">b          <span class="built_in">str</span>       hello</span><br></pre></td></tr></table></figure>
+
+<h3 id="多行魔法命令（-）"><a href="#多行魔法命令（-）" class="headerlink" title="多行魔法命令（%%）"></a>多行魔法命令（<code>%%</code>）</h3><p>多行魔法命令以 <code>%%</code> 开头。</p>
+<h4 id="1-代码保存相关"><a href="#1-代码保存相关" class="headerlink" title="1. 代码保存相关"></a>1. 代码保存相关</h4><p><code>%%writefile</code>：将单元格中的代码保存到指定文件中。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%%writefile test.py</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;This is a test file.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">Writing test.py</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们查看一下代码是否保存成功：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">test.py    Untitled.ipynb</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%cat test.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;This is a test file.&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-代码执行环境相关"><a href="#2-代码执行环境相关" class="headerlink" title="2. 代码执行环境相关"></a>2. 代码执行环境相关</h4><p><code>%%bash</code>：在单元格中执行 Bash 脚本。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%%bash</span><br><span class="line">ls -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">total <span class="number">832</span></span><br><span class="line">-rw-r--r-- <span class="number">1</span> user user <span class="number">30</span> Mar <span class="number">10</span> <span class="number">13</span>:04 test.py</span><br><span class="line">-rw-r--r-- <span class="number">1</span> user user <span class="number">30</span> Mar <span class="number">10</span> <span class="number">13</span>:06 Untitled.ipynb</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-代码分析相关"><a href="#3-代码分析相关" class="headerlink" title="3. 代码分析相关"></a>3. 代码分析相关</h4><p><code>%%prun</code>：对单元格中的代码进行性能分析，显示函数调用的时间统计信息。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%%prun</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">factorial</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span> <span class="keyword">or</span> n == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> n * factorial(n-<span class="number">1</span>)</span><br><span class="line">factorial(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output</span></span><br><span class="line">      <span class="number">13</span> function calls (<span class="number">4</span> primitive calls) <span class="keyword">in</span> <span class="number">0.000</span> seconds</span><br><span class="line"> </span><br><span class="line">Ordered by: internal time</span><br><span class="line"> </span><br><span class="line">ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">     <span class="number">1</span>    <span class="number">0.000</span>    <span class="number">0.000</span>    <span class="number">0.000</span>    <span class="number">0.000</span> &#123;built-<span class="keyword">in</span> method builtins.<span class="built_in">exec</span>&#125;</span><br><span class="line">  <span class="number">10</span>/<span class="number">1</span>    <span class="number">0.000</span>    <span class="number">0.000</span>    <span class="number">0.000</span>    <span class="number">0.000</span> &lt;string&gt;:<span class="number">1</span>(factorial)</span><br><span class="line">     <span class="number">1</span>    <span class="number">0.000</span>    <span class="number">0.000</span>    <span class="number">0.000</span>    <span class="number">0.000</span> &lt;string&gt;:<span class="number">1</span>(&lt;module&gt;)</span><br><span class="line">     <span class="number">1</span>    <span class="number">0.000</span>    <span class="number">0.000</span>    <span class="number">0.000</span>    <span class="number">0.000</span> &#123;method <span class="string">&#x27;disable&#x27;</span> of <span class="string">&#x27;_lsprof.Profiler&#x27;</span> objects&#125;</span><br></pre></td></tr></table></figure>
 
 <center>- EOF -</center>
     </div>
@@ -268,21 +324,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/04/08/curl-command-usage/" rel="prev" title="curl命令的常见使用方法">
-                  <i class="fa fa-chevron-left"></i> curl命令的常见使用方法
+                <a href="/2025/03/06/sql-collect-set/" rel="prev" title="Spark SQL中COLLECT_SET函数的用法及常见注意事项">
+                  <i class="fa fa-chevron-left"></i> Spark SQL中COLLECT_SET函数的用法及常见注意事项
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/04/26/SQLServer-String-Manipulating/" rel="next" title="玩转SQL Server字符串截取">
-                  玩转SQL Server字符串截取 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
