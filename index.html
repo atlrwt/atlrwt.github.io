@@ -141,7 +141,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -173,6 +173,141 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/24/sql-query-order-of-execution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="atlrwt">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知行合一">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 知行合一">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/03/24/sql-query-order-of-execution/" class="post-title-link" itemprop="url">SQL 查询语句的书写顺序和执行顺序</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-03-24 20:12:15 / 修改时间：20:19:41" itemprop="dateCreated datePublished" datetime="2025-03-24T20:12:15+08:00">2025-03-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Data-Analysis/" itemprop="url" rel="index"><span itemprop="name">Data Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL-DR"></a>TL-DR</h2><p>SQL 查询语句的书写和执行顺序：</p>
+<table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>书写顺序</th>
+<th>执行顺序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>SELECT</td>
+<td>FROM</td>
+</tr>
+<tr>
+<td>2</td>
+<td>FROM</td>
+<td>JOIN</td>
+</tr>
+<tr>
+<td>3</td>
+<td>JOIN</td>
+<td>WHERE</td>
+</tr>
+<tr>
+<td>4</td>
+<td>WHERE</td>
+<td>GROUP BY</td>
+</tr>
+<tr>
+<td>5</td>
+<td>GROUP BY</td>
+<td>HAVING</td>
+</tr>
+<tr>
+<td>6</td>
+<td>HAVING</td>
+<td>SELECT</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ORDER BY</td>
+<td>ORDER BY</td>
+</tr>
+<tr>
+<td>8</td>
+<td>LIMIT</td>
+<td>LIMIT</td>
+</tr>
+</tbody></table>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/03/24/sql-query-order-of-execution/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1026,80 +1161,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/12/excel-doesnot-recognize-the-data-until-double-click/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="atlrwt">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="知行合一">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 知行合一">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/12/excel-doesnot-recognize-the-data-until-double-click/" class="post-title-link" itemprop="url">Excel日期格式修改后需双击才能生效问题的批量解决方法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-10-12 11:33:27 / 修改时间：17:19:29" itemprop="dateCreated datePublished" datetime="2024-10-12T11:33:27+08:00">2024-10-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在Excel中，有时我们从网络上导入的日期数据其格式并非日期格式，</p>
-<p>有时我们将某一列单元格的日期格式进行更新后新的格式并不能立即生效，而是需要我们手动的去点击每个单元格使其生效。当数据量很大时人工操作的效率会很低。</p>
-<p>本文记录了批量调整的一种常用方法：通过分列功能。</p>
-<p>这主要是因为转换后的单元格为文本格式，或者叫做假日期格式，需要手动双击每个单元格使改动生效。</p>
-<p>此时可以使用“分列”功能批量进行修改。</p>
-<center>- EOF -</center>
       
     </div>
 

@@ -40,28 +40,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="写在前面本文用于记录工作中SQL关于表和列的一些常用查询操作。">
+    <meta name="description" content="TL-DRSQL 查询语句的书写和执行顺序：    顺序 书写顺序 执行顺序    1 SELECT FROM   2 FROM JOIN   3 JOIN WHERE   4 WHERE GROUP BY   5 GROUP BY HAVING   6 HAVING SELECT   7 ORDER BY ORDER BY   8 LIMIT LIMIT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL Server关于表和列的一些查询操作">
-<meta property="og:url" content="http://example.com/2024/03/28/SQLServer-Table-Columns-Query/index.html">
+<meta property="og:title" content="SQL 查询语句的书写顺序和执行顺序">
+<meta property="og:url" content="http://example.com/2025/03/24/sql-query-order-of-execution/index.html">
 <meta property="og:site_name" content="知行合一">
-<meta property="og:description" content="写在前面本文用于记录工作中SQL关于表和列的一些常用查询操作。">
+<meta property="og:description" content="TL-DRSQL 查询语句的书写和执行顺序：    顺序 书写顺序 执行顺序    1 SELECT FROM   2 FROM JOIN   3 JOIN WHERE   4 WHERE GROUP BY   5 GROUP BY HAVING   6 HAVING SELECT   7 ORDER BY ORDER BY   8 LIMIT LIMIT">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-28T12:21:08.000Z">
-<meta property="article:modified_time" content="2024-08-29T11:40:44.000Z">
+<meta property="article:published_time" content="2025-03-24T12:12:15.000Z">
+<meta property="article:modified_time" content="2025-03-24T12:19:41.094Z">
 <meta property="article:author" content="atlrwt">
 <meta property="article:tag" content="SQL">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2024/03/28/SQLServer-Table-Columns-Query/">
+<link rel="canonical" href="http://example.com/2025/03/24/sql-query-order-of-execution/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/03/28/SQLServer-Table-Columns-Query/","path":"2024/03/28/SQLServer-Table-Columns-Query/","title":"SQL Server关于表和列的一些查询操作"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/24/sql-query-order-of-execution/","path":"2025/03/24/sql-query-order-of-execution/","title":"SQL 查询语句的书写顺序和执行顺序"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>SQL Server关于表和列的一些查询操作 | 知行合一</title>
+<title>SQL 查询语句的书写顺序和执行顺序 | 知行合一</title>
   
 
 
@@ -134,7 +134,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87"><span class="nav-text">0. 数据准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E6%9F%90%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E8%A1%A8"><span class="nav-text">1. 如何获取某个数据库中所有的表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E6%9F%90%E4%B8%AA%E8%A1%A8%E4%B8%AD%E6%89%80%E6%9C%89%E5%88%97%E5%90%8D"><span class="nav-text">2. 如何获取某个表中所有列名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-sys-columns"><span class="nav-text">2.1 sys.columns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-INFORMATION-SCHEMA"><span class="nav-text">2.2 INFORMATION_SCHEMA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-SP-HELP"><span class="nav-text">2.3 SP_HELP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-SP-COLUMNS"><span class="nav-text">2.4 SP_COLUMNS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9F%A5%E7%9C%8B%E6%9F%90%E5%88%97%E9%83%BD%E5%87%BA%E7%8E%B0%E5%9C%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E8%A1%A8%E4%B8%AD"><span class="nav-text">3. 查看某列都出现在了哪些表中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9F%A5%E7%9C%8B%E6%9F%90%E5%88%97%E9%83%BD%E5%87%BA%E7%8E%B0%E5%9C%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%AD"><span class="nav-text">4. 查看某列都出现在了哪些存储过程中</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TL-DR"><span class="nav-text">TL-DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E7%9A%84%E4%B9%A6%E5%86%99%E9%A1%BA%E5%BA%8F"><span class="nav-text">SQL 查询语句的书写顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-text">SQL 查询语句的执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-text">示例</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -189,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/28/SQLServer-Table-Columns-Query/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/24/sql-query-order-of-execution/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -202,12 +202,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="SQL Server关于表和列的一些查询操作 | 知行合一">
+      <meta itemprop="name" content="SQL 查询语句的书写顺序和执行顺序 | 知行合一">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SQL Server关于表和列的一些查询操作
+          SQL 查询语句的书写顺序和执行顺序
         </h1>
 
         <div class="post-meta-container">
@@ -217,15 +217,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2024-03-28 20:21:08" itemprop="dateCreated datePublished" datetime="2024-03-28T20:21:08+08:00">2024-03-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-08-29 19:40:44" itemprop="dateModified" datetime="2024-08-29T19:40:44+08:00">2024-08-29</time>
+      <time title="创建时间：2025-03-24 20:12:15 / 修改时间：20:19:41" itemprop="dateCreated datePublished" datetime="2025-03-24T20:12:15+08:00">2025-03-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,49 +241,102 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>本文用于记录工作中SQL关于表和列的一些常用查询操作。</p>
+        <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL-DR"></a>TL-DR</h2><p>SQL 查询语句的书写和执行顺序：</p>
+<table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>书写顺序</th>
+<th>执行顺序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>SELECT</td>
+<td>FROM</td>
+</tr>
+<tr>
+<td>2</td>
+<td>FROM</td>
+<td>JOIN</td>
+</tr>
+<tr>
+<td>3</td>
+<td>JOIN</td>
+<td>WHERE</td>
+</tr>
+<tr>
+<td>4</td>
+<td>WHERE</td>
+<td>GROUP BY</td>
+</tr>
+<tr>
+<td>5</td>
+<td>GROUP BY</td>
+<td>HAVING</td>
+</tr>
+<tr>
+<td>6</td>
+<td>HAVING</td>
+<td>SELECT</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ORDER BY</td>
+<td>ORDER BY</td>
+</tr>
+<tr>
+<td>8</td>
+<td>LIMIT</td>
+<td>LIMIT</td>
+</tr>
+</tbody></table>
 <span id="more"></span>
 
-<h2 id="0-数据准备"><a href="#0-数据准备" class="headerlink" title="0. 数据准备"></a>0. 数据准备</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">USE mydb</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Person (</span><br><span class="line">    PersonID  <span class="type">INT</span>,</span><br><span class="line">    FirstName <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">    LastName  <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">    Age <span class="type">INT</span>,</span><br><span class="line">    LiveCity <span class="type">VARCHAR</span>(<span class="number">255</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Occupation (</span><br><span class="line">    PersonID <span class="type">INT</span>,</span><br><span class="line">    Company <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">    Occupation <span class="type">VARCHAR</span>(<span class="number">50</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> OtherInfo (</span><br><span class="line">    PersonID <span class="type">INT</span>,</span><br><span class="line">    MaritalStatus <span class="type">VARCHAR</span>(<span class="number">10</span>)</span><br><span class="line">)</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+<h2 id="SQL-查询语句的书写顺序"><a href="#SQL-查询语句的书写顺序" class="headerlink" title="SQL 查询语句的书写顺序"></a>SQL 查询语句的书写顺序</h2><p>在标准 SQL 中，一个完整的查询语句通常遵循以下书写顺序：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [<span class="keyword">DISTINCT</span>] select_list</span><br><span class="line"><span class="keyword">FROM</span> left_table</span><br><span class="line">[<span class="keyword">JOIN</span> right_table <span class="keyword">ON</span> join_condition]</span><br><span class="line">[<span class="keyword">WHERE</span> where_condition]</span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> group_by_list]</span><br><span class="line">[<span class="keyword">HAVING</span> having_condition]</span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> order_by_list]</span><br><span class="line">[LIMIT <span class="keyword">offset</span>, row_count];</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-如何获取某个数据库中所有的表"><a href="#1-如何获取某个数据库中所有的表" class="headerlink" title="1. 如何获取某个数据库中所有的表"></a>1. 如何获取某个数据库中所有的表</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">USE mydb</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> INFORMATION_SCHEMA.TABLES</span><br></pre></td></tr></table></figure>
+<p>各个子句的作用如下：</p>
+<ul>
+<li><code>SELECT</code>：用于指定要查询的列，可以是表中的列名，也可以是表达式。其中的 <code>DISTINCT</code> 关键字用于去除查询结果中的重复行。</li>
+<li><code>FROM</code>：指定要查询数据的表或视图。</li>
+<li><code>JOIN</code>：用于将多个表进行连接操作，通过 <code>ON</code> 子句指定连接条件。</li>
+<li><code>WHERE</code>：用于筛选满足指定条件的行。</li>
+<li><code>GROUP BY</code>：将查询结果按照指定的列进行分组。</li>
+<li><code>HAVING</code>：用于筛选分组后的结果，通常与 <code>GROUP BY</code> 子句一起使用。</li>
+<li><code>ORDER BY</code>：对查询结果按照指定的列进行排序。</li>
+<li><code>LIMIT</code>：用于限制查询结果返回的行数，<code>offset</code> 表示偏移量，<code>row_count</code> 表示返回的行数。</li>
+</ul>
+<h2 id="SQL-查询语句的执行顺序"><a href="#SQL-查询语句的执行顺序" class="headerlink" title="SQL 查询语句的执行顺序"></a>SQL 查询语句的执行顺序</h2><p>SQL 查询语句的执行顺序与书写顺序并不完全一致。实际的执行顺序如下：</p>
+<ul>
+<li><code>FROM</code>：首先从 <code>FROM</code> 子句指定的表或视图中读取数据。</li>
+<li><code>JOIN</code>：根据 <code>JOIN</code> 子句中的 <code>ON</code> 连接条件，将一个或多个表进行连接，生成一个临时结果表。</li>
+<li><code>WHERE</code>：对临时结果表进行筛选，只保留满足 <code>WHERE</code> 子句中条件的行。</li>
+<li><code>GROUP BY</code>：将筛选后的结果表按照 <code>GROUP BY</code> 子句中指定的列进行分组。</li>
+<li>聚合函数：对 <code>GROUP BY</code>后的分组进行聚合计算。</li>
+<li><code>HAVING</code>：对分组后的结果表进行筛选，只保留满足 <code>HAVING</code> 子句中条件的分组。</li>
+<li><code>SELECT</code>：从上一步的结果表中选择 <code>SELECT</code> 子句中指定的列。</li>
+<li><code>DISTINCT</code>：如果使用了 <code>DISTINCT</code> 关键字，会去除查询结果中的重复行。</li>
+<li><code>ORDER BY</code>：对查询结果按照 <code>ORDER BY</code> 子句中指定的列进行排序。</li>
+<li><code>LIMIT</code>：最后根据 <code>LIMIT</code> 子句限制查询结果返回的行数。</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>对于下面这段查询语句：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span></span><br><span class="line">       department</span><br><span class="line">       ,<span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> employee_count</span><br><span class="line">  <span class="keyword">FROM</span> employees e</span><br><span class="line"> <span class="keyword">INNER</span> <span class="keyword">JOIN</span> departments d</span><br><span class="line">         <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"> <span class="keyword">WHERE</span> salary <span class="operator">&gt;</span> <span class="number">5000</span></span><br><span class="line"> <span class="keyword">GROUP</span> <span class="keyword">BY</span> department</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="operator">&gt;</span> <span class="number">5</span></span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> employee_count <span class="keyword">DESC</span></span><br><span class="line"> LIMIT <span class="number">0</span>, <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
 
-<p>结果如下：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">   TABLE_CATELOG  TABLE_SCHEMA  TABLE_NAME  TABLE_TYPE</span><br><span class="line"><span class="number">1</span>  mydb           dbo           Person      BASE_TABLE</span><br><span class="line"><span class="number">2</span>  mydb           dbo           Occupation  BASE_TABLE</span><br><span class="line"><span class="number">3</span>  mydb           dbo           OtherInfo   BASE_TABLE</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-如何获取某个表中所有列名"><a href="#2-如何获取某个表中所有列名" class="headerlink" title="2. 如何获取某个表中所有列名"></a>2. 如何获取某个表中所有列名</h2><h3 id="2-1-sys-columns"><a href="#2-1-sys-columns" class="headerlink" title="2.1 sys.columns"></a>2.1 sys.columns</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> name</span><br><span class="line"><span class="keyword">FROM</span> mydb.sys.columns</span><br><span class="line"><span class="keyword">WHERE</span> object_id <span class="operator">=</span> OBJECT_ID(<span class="string">&#x27;Person&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">   name</span><br><span class="line"><span class="number">1</span>  PersonID</span><br><span class="line"><span class="number">2</span>  FirstName</span><br><span class="line"><span class="number">3</span>  LastName</span><br><span class="line"><span class="number">4</span>  Age</span><br><span class="line"><span class="number">5</span>  LiveCity</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-INFORMATION-SCHEMA"><a href="#2-2-INFORMATION-SCHEMA" class="headerlink" title="2.2 INFORMATION_SCHEMA"></a>2.2 INFORMATION_SCHEMA</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> COLUMN_NAME</span><br><span class="line"><span class="keyword">FROM</span> mydb.INFORMATION_SCHEMA.COLUMNS</span><br><span class="line"><span class="keyword">WHERE</span> TABLE_NAME <span class="operator">=</span> <span class="string">&#x27;Person&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">   name</span><br><span class="line"><span class="number">1</span>  PersonID</span><br><span class="line"><span class="number">2</span>  FirstName</span><br><span class="line"><span class="number">3</span>  LastName</span><br><span class="line"><span class="number">4</span>  Age</span><br><span class="line"><span class="number">5</span>  LiveCity</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3-SP-HELP"><a href="#2-3-SP-HELP" class="headerlink" title="2.3 SP_HELP"></a>2.3 SP_HELP</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">USE mydb</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line">SP_HELP Person</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">   Column_name  Type     ...</span><br><span class="line"><span class="number">1</span>  PersonID     <span class="type">int</span></span><br><span class="line"><span class="number">2</span>  FirstName    <span class="type">varchar</span></span><br><span class="line"><span class="number">3</span>  LastName     <span class="type">varchar</span></span><br><span class="line"><span class="number">4</span>  Age          <span class="type">int</span></span><br><span class="line"><span class="number">5</span>  LiveCity     <span class="type">varchar</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-4-SP-COLUMNS"><a href="#2-4-SP-COLUMNS" class="headerlink" title="2.4 SP_COLUMNS"></a>2.4 SP_COLUMNS</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">USE mydb</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line">SP_COLUMNS Person</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">   TABLE_QUALIFIER  TABLE_OWNER  TABLE_NAME  COLUMN_NAME  ...</span><br><span class="line"><span class="number">1</span>  mydb             dbo          Person      PersonID</span><br><span class="line"><span class="number">2</span>  mydb             dbo          Person      FirstName</span><br><span class="line"><span class="number">3</span>  mydb             dbo          Person      LastName</span><br><span class="line"><span class="number">4</span>  mydb             dbo          Person      Age</span><br><span class="line"><span class="number">5</span>  mydb             dbo          Person      LiveCity</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-查看某列都出现在了哪些表中"><a href="#3-查看某列都出现在了哪些表中" class="headerlink" title="3. 查看某列都出现在了哪些表中"></a>3. 查看某列都出现在了哪些表中</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    obj.name table_name,</span><br><span class="line">    col.name col_name</span><br><span class="line"><span class="keyword">FROM</span> syscolumns col</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> sysobjects obj</span><br><span class="line"><span class="keyword">ON</span> col.id <span class="operator">=</span> obj.id</span><br><span class="line"><span class="keyword">AND</span> obj.type <span class="operator">=</span> <span class="string">&#x27;U&#x27;</span></span><br><span class="line"><span class="keyword">WHERE</span> col.name <span class="keyword">LIKE</span> <span class="string">&#x27;%PersonID%&#x27;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> obj.name</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">   table_name  col_name</span><br><span class="line"><span class="number">1</span>  Occupation  PersonID</span><br><span class="line"><span class="number">2</span>  OtherInfo   PersonID</span><br><span class="line"><span class="number">3</span>  Person      PersonID</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-查看某列都出现在了哪些存储过程中"><a href="#4-查看某列都出现在了哪些存储过程中" class="headerlink" title="4. 查看某列都出现在了哪些存储过程中"></a>4. 查看某列都出现在了哪些存储过程中</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    obj.name sp_name,</span><br><span class="line">    sc.text  sp_content</span><br><span class="line"><span class="keyword">FROM</span> syscomments sc</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> sysobjects obj <span class="keyword">ON</span> sc.id <span class="operator">=</span> obj.id</span><br><span class="line"><span class="keyword">WHERE</span> sc.TEXT <span class="keyword">LIKE</span> <span class="string">&#x27;%PersonID%&#x27;</span></span><br><span class="line"><span class="keyword">AND</span> TYPE <span class="operator">=</span> <span class="string">&#x27;P&#x27;</span></span><br></pre></td></tr></table></figure>
-
-
+<p>其执行顺序如下：</p>
+<ul>
+<li><code>FROM</code>：从 <code>employees</code> 表和 <code>departments</code> 表中读取数据。</li>
+<li><code>INNER JOIN</code>：根据 <code>e.department_id = d.department_id</code> 条件将两个表进行内连接。</li>
+<li><code>WHERE</code>：筛选出 <code>salary &gt; 5000</code> 的行。</li>
+<li><code>GROUP BY</code>：将筛选后的结果按照 <code>department</code> 列进行分组。</li>
+<li><code>COUNT(*)</code>：计算各分组的员工数。</li>
+<li><code>HAVING</code>：筛选出员工数量大于 <code>5</code> 的分组。</li>
+<li><code>SELECT</code>：选择 <code>department</code> 列和每个分组的员工数量 <code>employee_count</code>。</li>
+<li><code>DISTINCT</code>：去除查询结果中的重复行。</li>
+<li><code>ORDER BY</code>：按照员工数量降序排序。</li>
+<li><code>LIMIT</code>：返回前 <code>10</code> 条记录。</li>
+</ul>
 <center>- EOF -</center>
-
-
-
-
-
     </div>
 
     
@@ -305,14 +352,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/03/23/SQlServer-Usage-Of-DATEADD-DATEDIFF/" rel="prev" title="SQL Server获取某月月初与月末日期的方法">
-                  <i class="fa fa-chevron-left"></i> SQL Server获取某月月初与月末日期的方法
+                <a href="/2025/03/13/jupyter-magic-command/" rel="prev" title="Jupyter Notebook 中系统命令和魔法命令的使用方法">
+                  <i class="fa fa-chevron-left"></i> Jupyter Notebook 中系统命令和魔法命令的使用方法
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/04/08/curl-command-usage/" rel="next" title="curl命令的常见使用方法">
-                  curl命令的常见使用方法 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
