@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { isPublished, tagToSlug } from "../../lib/content";
+import { withBase } from "../../lib/url";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) =>
+    isPublished(data),
+  );
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${project.data.title} - Shengjie`} description={project.data.description}>
+  <article class="container prose">
+    <header>
+      <p class="meta">{project.data.status}</p>
+      <h1>{project.data.title}</h1>
+      <p>{project.data.description}</p>
+      <div class="tags">
+        {project.data.tags.map((tag) => <a class="tag" href={withBase(`/tags/${tagToSlug(tag)}/`)}>{tag}</a>)}
+      </div>
+      <div class="button-row">
+        {project.data.repoUrl && <a class="button secondary" href={project.data.repoUrl}>Repository</a>}
+        {project.data.demoUrl && <a class="button" href={project.data.demoUrl}>Demo</a>}
+      </div>
+    </header>
+    <Content />
+  </article>
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import PostCard from "../../components/content/PostCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllTags, getBlogPosts, tagToSlug } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getBlogPosts();
+  return getAllTags(posts).map((tag) => ({
+    params: { tag: tagToSlug(tag) },
+    props: {
+      tag,
+      posts: posts.filter((post) =>
+        post.data.tags.some((postTag) => tagToSlug(postTag) === tagToSlug(tag)),
+      ),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`Tag: ${tag} - Shengjie`}>
+  <section class="page-head">
+    <div class="container">
+      <h1>#{tag}</h1>
+      <p>Posts tagged with {tag}.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

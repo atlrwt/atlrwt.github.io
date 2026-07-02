@@ -1,0 +1,28 @@
+---
+import PostCard from "../../components/content/PostCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllTags, getBlogPosts, tagToSlug } from "../../lib/content";
+import { withBase } from "../../lib/url";
+
+const posts = await getBlogPosts();
+const tags = getAllTags(posts);
+---
+
+<BaseLayout title="Blog - Shengjie">
+  <section class="page-head">
+    <div class="container">
+      <h1>Blog</h1>
+      <p>Technical notes, project reflections, and knowledge management practice.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container stack">
+      <div class="tags">
+        {tags.map((tag) => <a class="tag" href={withBase(`/tags/${tagToSlug(tag)}/`)}>{tag}</a>)}
+      </div>
+      <div class="grid">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

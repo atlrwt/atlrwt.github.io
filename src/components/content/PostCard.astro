@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { withBase } from "../../lib/url";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+---
+
+<a class="card" href={withBase(`/blog/${post.id}/`)}>
+  <div class="meta">
+    <time datetime={post.data.publishDate.toISOString()}>
+      {post.data.publishDate.toLocaleDateString("zh-CN")}
+    </time>
+  </div>
+  <h2>{post.data.title}</h2>
+  <p>{post.data.description}</p>
+  <div class="tags">
+    {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+  </div>
+</a>

@@ -1,0 +1,57 @@
+---
+import { siteConfig } from "../config/site";
+import { withBase } from "../lib/url";
+---
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href={withBase("/")}>{siteConfig.name}</a>
+    <nav aria-label="Main navigation">
+      {
+        siteConfig.nav.map((item) => (
+          <a href={withBase(item.href)} aria-current={Astro.url.pathname === withBase(item.href) ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 88%, white);
+  }
+
+  .nav-wrap {
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .brand {
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 14px;
+  }
+
+  nav a {
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  nav a[aria-current="page"] {
+    color: var(--text);
+    font-weight: 700;
+  }
+</style>

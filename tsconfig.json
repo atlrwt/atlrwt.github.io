@@ -1,0 +1,7 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "exclude": ["hexo", "dist", "node_modules"]
+}

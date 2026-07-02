@@ -1,0 +1,16 @@
+---
+interface Props {
+  enabled?: boolean;
+}
+
+const { enabled = false } = Astro.props;
+---
+
+{
+  enabled && (
+    <section aria-label="Comments">
+      <p>Comments integration is reserved for phase 2 or later.</p>
+    </section>
+  )
+}
+
