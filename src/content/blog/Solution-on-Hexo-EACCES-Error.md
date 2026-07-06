@@ -96,7 +96,7 @@ Creating default alias: default -> 18 (-> v18.14.2)
 `npm`安装完成后即可继续hexo的安装。
 
 ## 参考
-1. [Resolving EACCES permissions errors when installing packages globally ]([https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally])
+1. [Resolving EACCES permissions errors when installing packages globally](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally)
 2. [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 3. [Node Version Manager](https://github.com/nvm-sh/nvm)
 

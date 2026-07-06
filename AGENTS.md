@@ -46,6 +46,8 @@ src/components/analytics/Future analytics integrations
 src/styles/              Global CSS
 src/lib/                 Small shared helpers
 public/                  Static assets copied as-is
+templates/posts/         Blog writing templates
+scripts/                 Local automation scripts
 deploy/                  Future deployment notes and config
 ```
 
@@ -79,11 +81,31 @@ Project entries must include:
 
 Draft content is visible during local development and excluded in production builds.
 
+## Writing Workflow
+
+Use the local scripts for repeatable content work:
+
+```bash
+npm run new:post -- "Post title"
+npm run lint:content
+npm run check:publish
+npm run check:publish -- src/content/blog/yyyy-mm-dd-topic.mdx
+```
+
+- New posts are created as drafts under `src/content/blog/`.
+- New post files should use date-prefixed kebab-case names.
+- Post templates live in `templates/posts/`.
+- `lint:content` checks frontmatter, dates, local images, and internal links.
+- `check:publish` checks all published content and ignores unrelated drafts.
+- `check:publish -- <path>` also checks the target file is ready to publish, including `draft: false` and no placeholder text.
+
 ## Verification
 
 After code changes, run:
 
 ```bash
+npm run lint:content
+npm run check:publish
 npm run check
 npm run build
 ```
