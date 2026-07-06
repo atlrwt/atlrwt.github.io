@@ -55,14 +55,14 @@ Proxy On
 ```bash
 $ curl ipinfo.io
 {
-  "ip": "43.167.247.180",
-  "city": "Singapore",
-  "region": "Singapore",
-  "country": "SG",
-  "loc": "1.2771,103.8481",
-  "org": "AS132203 Tencent Building, Kejizhongyi Avenue",
-  "postal": "068897",
-  "timezone": "Asia/Singapore",
+  "ip": "203.0.113.10",
+  "city": "Example City",
+  "region": "Example Region",
+  "country": "EX",
+  "loc": "0.0000,0.0000",
+  "org": "AS64496 Example Network",
+  "postal": "000000",
+  "timezone": "Etc/UTC",
   "readme": "https://ipinfo.io/missingauth"
 }%
 ```
@@ -83,14 +83,14 @@ function checkProxyStatus() {
 $ source ~/.zshrc
 $ checkProxyStatus
 {
-  "ip": "43.167.247.180",
-  "city": "Singapore",
-  "region": "Singapore",
-  "country": "SG",
-  "loc": "1.2771,103.8481",
-  "org": "AS132203 Tencent Building, Kejizhongyi Avenue",
-  "postal": "068897",
-  "timezone": "Asia/Singapore",
+  "ip": "203.0.113.10",
+  "city": "Example City",
+  "region": "Example Region",
+  "country": "EX",
+  "loc": "0.0000,0.0000",
+  "org": "AS64496 Example Network",
+  "postal": "000000",
+  "timezone": "Etc/UTC",
   "readme": "https://ipinfo.io/missingauth"
 }%
 ```

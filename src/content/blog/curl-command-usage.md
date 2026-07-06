@@ -30,7 +30,7 @@ $ curl http://www.example.com
 `-d`用于发送POST请求的数据体，通常用于提交表单。
 
 ```bash
-$ curl -d "login=abc&password=123" -X POST http://www.example.com
+$ curl -d "login=<username>&password=<password>" -X POST http://www.example.com
 ```
 
 ### -H
@@ -46,7 +46,7 @@ $ curl -H "Content-Type:appliation/json" -X POST -d "" http://www.example.com
 `-X`用于指定请求的方法。
 
 ```bash
-$ curl -d "login=abc&password=123" -X POST http://www.example.com
+$ curl -d "login=<username>&password=<password>" -X POST http://www.example.com
 ```
 
 ## 参考资料
