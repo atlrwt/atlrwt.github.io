@@ -27,6 +27,11 @@ const { Content, headings } = await render(post);
       </p>
       <h1>{post.data.title}</h1>
       <p>{post.data.description}</p>
+      {
+        post.data.categories.length > 0 && (
+          <p class="meta">分类：{post.data.categories.join(" / ")}</p>
+        )
+      }
       <div class="tags">
         {post.data.tags.map((tag) => <a class="tag" href={withBase(`/tags/${tagToSlug(tag)}/`)}>{tag}</a>)}
       </div>

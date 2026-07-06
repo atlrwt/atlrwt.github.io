@@ -26,6 +26,16 @@ export function getAllTags<T extends { data: { tags: string[] } }>(
   return Array.from(new Set(entries.flatMap((entry) => entry.data.tags))).sort();
 }
 
+export function getAllCategories<T extends { data: { categories: string[] } }>(
+  entries: T[],
+) {
+  return Array.from(
+    new Set(entries.flatMap((entry) => entry.data.categories)),
+  ).sort();
+}
+
 export function tagToSlug(tag: string) {
   return tag.trim().toLowerCase().replace(/\s+/g, "-");
 }
+
+export const categoryToSlug = tagToSlug;

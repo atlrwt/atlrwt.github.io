@@ -1,0 +1,37 @@
+---
+import PostCard from "../../components/content/PostCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { categoryToSlug, getAllCategories, getBlogPosts } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getBlogPosts();
+  return getAllCategories(posts).map((category) => ({
+    params: { category: categoryToSlug(category) },
+    props: {
+      category,
+      posts: posts.filter((post) =>
+        post.data.categories.some(
+          (postCategory) => categoryToSlug(postCategory) === categoryToSlug(category),
+        ),
+      ),
+    },
+  }));
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout title={`Category: ${category} - Shengjie`}>
+  <section class="page-head">
+    <div class="container">
+      <h1>{category}</h1>
+      <p>Posts in {category}.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>
+

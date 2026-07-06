@@ -17,6 +17,11 @@ const { post } = Astro.props;
   </div>
   <h2>{post.data.title}</h2>
   <p>{post.data.description}</p>
+  {
+    post.data.categories.length > 0 && (
+      <div class="meta">{post.data.categories.join(" / ")}</div>
+    )
+  }
   <div class="tags">
     {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
   </div>

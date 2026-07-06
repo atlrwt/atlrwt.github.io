@@ -7,6 +7,7 @@ const shared = {
   description: z.string(),
   publishDate: z.coerce.date(),
   updatedDate: z.coerce.date().optional(),
+  categories: z.array(z.string()).default([]),
   tags: z.array(z.string()).default([]),
   draft: z.boolean().default(false),
 };
@@ -30,4 +31,3 @@ const projects = defineCollection({
 });
 
 export const collections = { blog, projects };
-

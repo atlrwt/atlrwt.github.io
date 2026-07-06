@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { categoryToSlug, getAllCategories, getBlogPosts } from "../../lib/content";
+import { withBase } from "../../lib/url";
+
+const posts = await getBlogPosts();
+const categories = getAllCategories(posts);
+---
+
+<BaseLayout title="Categories - Shengjie">
+  <section class="page-head">
+    <div class="container">
+      <h1>Categories</h1>
+      <p>Browse writing by topic area.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="tags">
+        {
+          categories.map((category) => (
+            <a class="tag" href={withBase(`/categories/${categoryToSlug(category)}/`)}>
+              {category}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

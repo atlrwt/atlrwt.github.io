@@ -52,7 +52,8 @@ deploy/                  Future deployment notes and config
 ## Naming Rules
 
 - Use kebab-case for files and route segments.
-- Blog files should start with a date: `yyyy-mm-dd-topic.mdx`.
+- New blog files should start with a date: `yyyy-mm-dd-topic.mdx`.
+- Migrated legacy posts may keep their source slug, such as `sql-row-number.md`, when the slug is part of the public URL strategy.
 - Project files should use the project slug: `project-name.mdx`.
 - Keep frontmatter fields stable once published.
 
@@ -63,6 +64,7 @@ Blog posts must include:
 - `title`
 - `description`
 - `publishDate`
+- `categories`
 - `tags`
 - `draft`
 
@@ -102,4 +104,3 @@ Ask before:
 - Database schema changes or data migrations
 - Installing global dependencies or changing system config
 - Public publishing or production deployment
-
