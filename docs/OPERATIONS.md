@@ -2,6 +2,26 @@
 
 This log records significant project operations for traceability.
 
+## 2026-07-07 16:25 CST
+
+- Operation: Implemented production analytics wiring for Umami.
+- Changes:
+  - Added `PUBLIC_UMAMI_DOMAINS` support to `UmamiAnalytics.astro`.
+  - Injected Umami public variables through the GitHub Pages workflow.
+  - Extended `check:deploy` to validate Umami script output when `PUBLIC_UMAMI_*` variables are provided.
+  - Documented Umami production analytics setup in `README.md` and `README.en.md`.
+- Verification:
+  - `node --check scripts/check-deploy.mjs`
+  - `npm run lint:content`
+  - `npm run check:publish`
+  - `npm run check -- --minimumFailingSeverity error`
+  - `npm run build`
+  - `npm run check:deploy`
+  - Test build with `PUBLIC_UMAMI_WEBSITE_ID`, `PUBLIC_UMAMI_SRC`, and `PUBLIC_UMAMI_DOMAINS`
+- Pending external step:
+  - Configure real Umami Cloud website values in GitHub Actions Variables.
+  - Redeploy and run `npm run check:deploy` with the real `PUBLIC_UMAMI_*` values.
+
 ## 2026-07-07 16:08 CST
 
 - Operation: Added README status badges.

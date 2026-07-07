@@ -1,4 +1,7 @@
 const site = normalizeSite(process.env.PUBLIC_SITE_URL ?? "https://atlrwt.github.io/");
+const expectedUmamiWebsiteId = process.env.PUBLIC_UMAMI_WEBSITE_ID;
+const expectedUmamiSrc = process.env.PUBLIC_UMAMI_SRC;
+const expectedUmamiDomains = process.env.PUBLIC_UMAMI_DOMAINS;
 
 const urls = [
   "/",
@@ -40,6 +43,7 @@ for (const check of htmlChecks) {
   await checkHtml(check.path, check.patterns);
 }
 
+await checkAnalytics();
 await checkXml("/rss.xml", ["https://atlrwt.github.io/", "<item"]);
 await checkXml("/sitemap-0.xml", ["https://atlrwt.github.io/blog/"]);
 
@@ -96,6 +100,38 @@ async function checkXml(path, patterns) {
 
   if (/localhost|127\.0\.0\.1|\/Users\//.test(body)) {
     problems.push(`${path}: contains local URL or path`);
+  }
+}
+
+async function checkAnalytics() {
+  if (!expectedUmamiWebsiteId && !expectedUmamiSrc && !expectedUmamiDomains) {
+    console.warn("Warning: Umami deploy check skipped because PUBLIC_UMAMI_* variables are not set.");
+    return;
+  }
+
+  if (!expectedUmamiWebsiteId || !expectedUmamiSrc) {
+    problems.push("Umami deploy check requires both PUBLIC_UMAMI_WEBSITE_ID and PUBLIC_UMAMI_SRC");
+    return;
+  }
+
+  const response = await fetchUrl("/");
+  const body = await response.text();
+
+  if (!response.ok) {
+    problems.push(`/: expected HTTP 200 for Umami check, got ${response.status}`);
+    return;
+  }
+
+  if (!body.includes(`data-website-id="${expectedUmamiWebsiteId}"`)) {
+    problems.push("/: missing expected Umami data-website-id");
+  }
+
+  if (!body.includes(`src="${expectedUmamiSrc}"`)) {
+    problems.push("/: missing expected Umami script src");
+  }
+
+  if (expectedUmamiDomains && !body.includes(`data-domains="${expectedUmamiDomains}"`)) {
+    problems.push("/: missing expected Umami data-domains");
   }
 }
 

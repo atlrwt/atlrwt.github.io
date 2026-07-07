@@ -169,6 +169,27 @@ npm run check:deploy
 
 该命令会检查核心页面、RSS、sitemap、代表性文章、SEO 输出、静态资源和常见敏感信息模式。
 
+## 生产访问统计
+
+生产访问统计使用 Umami。当前站点只需要在 GitHub Actions Variables 中配置公开构建变量：
+
+```text
+PUBLIC_UMAMI_WEBSITE_ID
+PUBLIC_UMAMI_SRC
+PUBLIC_UMAMI_DOMAINS=atlrwt.github.io
+```
+
+这些值会在 GitHub Pages workflow 构建时注入，并由 `src/components/analytics/UmamiAnalytics.astro` 输出到页面 `<head>`。如果变量为空，则不会输出统计脚本。
+
+部署后可带上同样的变量验证线上统计脚本：
+
+```bash
+PUBLIC_UMAMI_WEBSITE_ID=... \
+PUBLIC_UMAMI_SRC=... \
+PUBLIC_UMAMI_DOMAINS=atlrwt.github.io \
+npm run check:deploy
+```
+
 ## 操作日志
 
 重要操作记录在：

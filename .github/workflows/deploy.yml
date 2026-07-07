@@ -26,6 +26,9 @@ jobs:
         env:
           PUBLIC_SITE_URL: https://atlrwt.github.io
           PUBLIC_SITE_BASE: /
+          PUBLIC_UMAMI_WEBSITE_ID: ${{ vars.PUBLIC_UMAMI_WEBSITE_ID }}
+          PUBLIC_UMAMI_SRC: ${{ vars.PUBLIC_UMAMI_SRC }}
+          PUBLIC_UMAMI_DOMAINS: ${{ vars.PUBLIC_UMAMI_DOMAINS }}
 
   deploy:
     needs: build

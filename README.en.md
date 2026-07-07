@@ -174,6 +174,30 @@ npm run check:deploy
 This checks core pages, RSS, sitemap, representative posts, SEO output, static
 assets, and common sensitive information patterns.
 
+## Production Analytics
+
+Production analytics uses Umami. Configure these public build variables in
+GitHub Actions Variables:
+
+```text
+PUBLIC_UMAMI_WEBSITE_ID
+PUBLIC_UMAMI_SRC
+PUBLIC_UMAMI_DOMAINS=atlrwt.github.io
+```
+
+The GitHub Pages workflow injects these variables during build, and
+`src/components/analytics/UmamiAnalytics.astro` renders the tracking script in
+the page `<head>`. If the variables are empty, no analytics script is rendered.
+
+After deployment, pass the same variables to verify the live tracking script:
+
+```bash
+PUBLIC_UMAMI_WEBSITE_ID=... \
+PUBLIC_UMAMI_SRC=... \
+PUBLIC_UMAMI_DOMAINS=atlrwt.github.io \
+npm run check:deploy
+```
+
 ## Operation Log
 
 Significant operations are recorded in:
