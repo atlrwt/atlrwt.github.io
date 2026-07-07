@@ -2,6 +2,11 @@
 
 [中文](README.md)
 
+![Astro](https://img.shields.io/badge/Astro-7.0.5-ff5d01?logo=astro&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.12.0-339933?logo=node.js&logoColor=white)
+[![Deploy to GitHub Pages](https://github.com/atlrwt/atlrwt.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/atlrwt/atlrwt.github.io/actions/workflows/deploy.yml)
+[![Site](https://img.shields.io/badge/GitHub%20Pages-live-2ea44f?logo=github)](https://atlrwt.github.io/)
+
 Astro-based personal technical website for personal branding, technical writing,
 and project portfolio pages.
 
@@ -48,6 +53,7 @@ src/content/blog/        Blog posts
 src/content/projects/    Project portfolio entries
 templates/posts/         Blog writing templates
 scripts/                 Local automation scripts
+docs/                    Project operation logs and maintenance notes
 ```
 
 Draft content uses:
@@ -158,6 +164,31 @@ Deployment target:
 ```text
 https://atlrwt.github.io/
 ```
+
+After deployment completes, run:
+
+```bash
+npm run check:deploy
+```
+
+This checks core pages, RSS, sitemap, representative posts, SEO output, static
+assets, and common sensitive information patterns.
+
+## Operation Log
+
+Significant operations are recorded in:
+
+```text
+docs/OPERATIONS.md
+```
+
+Events that should be recorded:
+
+- Deployments and post-deploy checks
+- Content migrations or batch edits
+- Security and privacy reviews
+- Workflow or infrastructure changes
+- Future NAS migration operations
 
 ## Future Phase
 

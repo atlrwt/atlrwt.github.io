@@ -48,6 +48,7 @@ src/lib/                 Small shared helpers
 public/                  Static assets copied as-is
 templates/posts/         Blog writing templates
 scripts/                 Local automation scripts
+docs/                    Project operation logs and maintenance notes
 deploy/                  Future deployment notes and config
 ```
 
@@ -90,6 +91,7 @@ npm run new:post -- "Post title"
 npm run lint:content
 npm run check:publish
 npm run check:publish -- src/content/blog/yyyy-mm-dd-topic.mdx
+npm run check:deploy
 ```
 
 - New posts are created as drafts under `src/content/blog/`.
@@ -98,6 +100,7 @@ npm run check:publish -- src/content/blog/yyyy-mm-dd-topic.mdx
 - `lint:content` checks frontmatter, dates, local images, and internal links.
 - `check:publish` checks all published content and ignores unrelated drafts.
 - `check:publish -- <path>` also checks the target file is ready to publish, including `draft: false` and no placeholder text.
+- `check:deploy` checks the deployed GitHub Pages site after publishing.
 
 ## Verification
 
@@ -109,6 +112,32 @@ npm run check:publish
 npm run check
 npm run build
 ```
+
+After pushing to GitHub Pages, run:
+
+```bash
+npm run check:deploy
+```
+
+## Operation Log
+
+Record significant project operations in `docs/OPERATIONS.md`.
+
+Log entries should include:
+
+- Date and time with timezone
+- Operation summary
+- Changed files or commit id when available
+- Verification commands and result
+- Deployment result when applicable
+
+Log these events:
+
+- Deployments and deployment checks
+- Content migrations or batch edits
+- Security and privacy reviews
+- Workflow or infrastructure changes
+- NAS migration work
 
 For local preview:
 

@@ -2,6 +2,11 @@
 
 [English](README.en.md)
 
+![Astro](https://img.shields.io/badge/Astro-7.0.5-ff5d01?logo=astro&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.12.0-339933?logo=node.js&logoColor=white)
+[![Deploy to GitHub Pages](https://github.com/atlrwt/atlrwt.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/atlrwt/atlrwt.github.io/actions/workflows/deploy.yml)
+[![Site](https://img.shields.io/badge/GitHub%20Pages-live-2ea44f?logo=github)](https://atlrwt.github.io/)
+
 基于 Astro 的个人技术网站，用于个人品牌展示、技术博客沉淀和项目作品集展示。
 
 ## 路线图
@@ -47,6 +52,7 @@ src/content/blog/        博客文章
 src/content/projects/    项目作品集条目
 templates/posts/         博客写作模板
 scripts/                 本地自动化脚本
+docs/                    项目操作日志和维护记录
 ```
 
 草稿内容使用：
@@ -154,6 +160,30 @@ git push origin main
 ```text
 https://atlrwt.github.io/
 ```
+
+部署完成后运行线上验证：
+
+```bash
+npm run check:deploy
+```
+
+该命令会检查核心页面、RSS、sitemap、代表性文章、SEO 输出、静态资源和常见敏感信息模式。
+
+## 操作日志
+
+重要操作记录在：
+
+```text
+docs/OPERATIONS.md
+```
+
+需要记录的事件包括：
+
+- 部署和部署后检查
+- 内容迁移或批量修改
+- 安全和隐私检查
+- 工作流或基础设施调整
+- 后续 NAS 迁移操作
 
 ## 后续阶段
 

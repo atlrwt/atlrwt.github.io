@@ -10,7 +10,8 @@
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "new:post": "node scripts/new-post.mjs",
     "lint:content": "node scripts/check-content.mjs",
-    "check:publish": "node scripts/check-content.mjs --publish"
+    "check:publish": "node scripts/check-content.mjs --publish",
+    "check:deploy": "node scripts/check-deploy.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.1",
