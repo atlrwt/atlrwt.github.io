@@ -2,6 +2,19 @@
 
 This log records significant project operations for traceability.
 
+## 2026-07-07 16:42 CST
+
+- Operation: Fixed GitHub Actions Variables for Umami Cloud and redeployed.
+- Changes:
+  - Corrected `PUBLIC_UMAMI_WEBSITE_ID` to the raw website id.
+  - Corrected `PUBLIC_UMAMI_SRC` to `https://cloud.umami.is/script.js`.
+  - Corrected `PUBLIC_UMAMI_DOMAINS` to `atlrwt.github.io`.
+  - Re-ran GitHub Pages workflow with `workflow_dispatch`.
+- Verification:
+  - GitHub Pages workflow completed successfully.
+  - `npm run check:deploy` with real `PUBLIC_UMAMI_*` values passed.
+  - Confirmed live homepage contains the Umami script with expected `src`, `data-website-id`, and `data-domains`.
+
 ## 2026-07-07 16:25 CST
 
 - Operation: Implemented production analytics wiring for Umami.
