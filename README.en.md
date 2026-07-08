@@ -16,13 +16,22 @@ and project portfolio pages.
 | --- | --- | --- |
 | Complete | Complete | Not started |
 | Build a local static website foundation for writing, previewing, and building content. | Publish the Astro site from GitHub to GitHub Pages through an automated workflow. | Move static hosting to Synology NAS while keeping the site easy to build and redeploy. |
-| [x] Astro static site structure<br>[x] MDX support<br>[x] Blog and project content collections<br>[x] RSS<br>[x] Sitemap<br>[x] SEO basics<br>[x] Comment and analytics placeholders<br>[x] Hexo article migration<br>[x] Image migration<br>[x] Categories<br>[x] Tags<br>[x] Markdown table styling<br>[x] Math rendering with KaTeX<br>[x] Content writing workflow scripts<br>[ ] Improve visual design<br>[ ] Add search<br>[ ] Add comments<br>[ ] Add analytics<br>[ ] Refine SEO<br>[ ] Refine content publishing checks | [x] `atlrwt/atlrwt.github.io` repository setup<br>[x] GitHub Pages workflow<br>[x] GitHub Actions deployment source<br>[x] Hexo static backup branch<br>[x] Source branch is `main`<br>[x] Legacy Hexo static site is backed up in `legacy-hexo-static`<br>[x] Successful production deployment to `https://atlrwt.github.io/`<br>[ ] Optional custom domain<br>[ ] Richer Open Graph images<br>[ ] Production comments<br>[ ] Production analytics<br>[ ] Post-deploy verification checklist | [ ] Choose NAS hosting mode<br>[ ] Serve generated `dist/`<br>[ ] Configure domain or reverse proxy<br>[ ] Configure HTTPS<br>[ ] Define deployment process from local/GitHub to NAS<br>[ ] Evaluate Docker + Nginx<br>[ ] Evaluate Synology Web Station<br>[ ] Evaluate reverse proxy in front of a static file server<br>[ ] Decide whether NAS becomes primary site or backup mirror<br>[ ] Implement automation and operational notes |
+| [x] Astro static site structure<br>[x] MDX support<br>[x] Blog and project content collections<br>[x] RSS<br>[x] Sitemap<br>[x] SEO basics<br>[x] Comment and analytics placeholders<br>[x] Hexo article migration<br>[x] Image migration<br>[x] Categories<br>[x] Tags<br>[x] Markdown table styling<br>[x] Math rendering with KaTeX<br>[x] Content writing workflow scripts<br>[ ] Improve visual design<br>[ ] Add search<br>[ ] Defer comments until the site has enough operating data<br>[ ] Add analytics<br>[ ] Refine SEO<br>[ ] Refine content publishing checks | [x] `atlrwt/atlrwt.github.io` repository setup<br>[x] GitHub Pages workflow<br>[x] GitHub Actions deployment source<br>[x] Hexo static backup branch<br>[x] Source branch is `main`<br>[x] Legacy Hexo static site is backed up in `legacy-hexo-static`<br>[x] Successful production deployment to `https://atlrwt.github.io/`<br>[ ] Optional custom domain<br>[ ] Richer Open Graph images<br>[ ] Defer production comments until traffic and interaction needs are clear<br>[ ] Production analytics<br>[ ] Post-deploy verification checklist | [ ] Choose NAS hosting mode<br>[ ] Serve generated `dist/`<br>[ ] Configure domain or reverse proxy<br>[ ] Configure HTTPS<br>[ ] Define deployment process from local/GitHub to NAS<br>[ ] Evaluate Docker + Nginx<br>[ ] Evaluate Synology Web Station<br>[ ] Evaluate reverse proxy in front of a static file server<br>[ ] Decide whether NAS becomes primary site or backup mirror<br>[ ] Implement automation and operational notes |
 
 Current production site:
 
 ```text
 https://atlrwt.github.io/
 ```
+
+## Comment System Decision
+
+Comments are not enabled for now. The blog will keep running as a static site first. A comment system will be reconsidered after traffic and reader interaction needs become clear.
+
+Future candidates:
+
+- Low-maintenance option: `Giscus`, based on GitHub Discussions, without true anonymous comments.
+- Anonymous-comment option: `Waline` or `Remark42`, with extra server, database, moderation, anti-spam, and backup responsibilities.
 
 ## Requirements
 

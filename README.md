@@ -15,13 +15,22 @@
 | --- | --- | --- |
 | 已完成 | 已完成 | 未开始 |
 | 搭建本地静态网站基础，支持内容写作、本地预览和静态构建。 | 通过 GitHub Actions 将 Astro 站点自动发布到 GitHub Pages。 | 将静态站点迁移到群晖 NAS 托管，同时保持构建和部署流程清晰。 |
-| [x] Astro 静态站点结构<br>[x] MDX 支持<br>[x] 博客和项目内容集合<br>[x] RSS<br>[x] 站点地图<br>[x] 基础 SEO<br>[x] 评论和统计占位组件<br>[x] Hexo 文章迁移<br>[x] 图片迁移<br>[x] 分类<br>[x] 标签<br>[x] Markdown 表格样式<br>[x] KaTeX 数学公式渲染<br>[x] 内容写作工作流脚本<br>[ ] 视觉设计优化<br>[ ] 全文搜索<br>[ ] 评论<br>[ ] 访问统计<br>[ ] SEO 深化<br>[ ] 内容发布检查完善 | [x] `atlrwt/atlrwt.github.io` 仓库配置<br>[x] GitHub Pages workflow<br>[x] GitHub Actions 部署源<br>[x] Hexo 静态站点备份分支<br>[x] 源码分支为 `main`<br>[x] 旧 Hexo 静态站点备份在 `legacy-hexo-static`<br>[x] 生产环境成功部署到 `https://atlrwt.github.io/`<br>[ ] 可选自定义域名<br>[ ] 更完整的 Open Graph 图片<br>[ ] 生产评论<br>[ ] 生产统计<br>[ ] 部署后验证清单 | [ ] 选择 NAS 托管方式<br>[ ] 托管生成后的 `dist/`<br>[ ] 配置域名或反向代理<br>[ ] 配置 HTTPS<br>[ ] 定义从本地或 GitHub 到 NAS 的部署流程<br>[ ] 评估 Docker + Nginx<br>[ ] 评估 Synology Web Station<br>[ ] 评估静态文件服务前的反向代理<br>[ ] 决定 NAS 是主站还是备份镜像<br>[ ] 实现自动化和运维说明 |
+| [x] Astro 静态站点结构<br>[x] MDX 支持<br>[x] 博客和项目内容集合<br>[x] RSS<br>[x] 站点地图<br>[x] 基础 SEO<br>[x] 评论和统计占位组件<br>[x] Hexo 文章迁移<br>[x] 图片迁移<br>[x] 分类<br>[x] 标签<br>[x] Markdown 表格样式<br>[x] KaTeX 数学公式渲染<br>[x] 内容写作工作流脚本<br>[ ] 视觉设计优化<br>[ ] 全文搜索<br>[ ] 评论暂缓，运行一段时间后评估<br>[ ] 访问统计<br>[ ] SEO 深化<br>[ ] 内容发布检查完善 | [x] `atlrwt/atlrwt.github.io` 仓库配置<br>[x] GitHub Pages workflow<br>[x] GitHub Actions 部署源<br>[x] Hexo 静态站点备份分支<br>[x] 源码分支为 `main`<br>[x] 旧 Hexo 静态站点备份在 `legacy-hexo-static`<br>[x] 生产环境成功部署到 `https://atlrwt.github.io/`<br>[ ] 可选自定义域名<br>[ ] 更完整的 Open Graph 图片<br>[ ] 生产评论暂缓，待访问量和互动需求明确后评估<br>[ ] 生产统计<br>[ ] 部署后验证清单 | [ ] 选择 NAS 托管方式<br>[ ] 托管生成后的 `dist/`<br>[ ] 配置域名或反向代理<br>[ ] 配置 HTTPS<br>[ ] 定义从本地或 GitHub 到 NAS 的部署流程<br>[ ] 评估 Docker + Nginx<br>[ ] 评估 Synology Web Station<br>[ ] 评估静态文件服务前的反向代理<br>[ ] 决定 NAS 是主站还是备份镜像<br>[ ] 实现自动化和运维说明 |
 
 当前生产站点：
 
 ```text
 https://atlrwt.github.io/
 ```
+
+## 评论系统决策
+
+当前暂不接入评论系统。博客先保持静态站点形态运行一段时间，待访问量和读者互动需求明确后再决定是否引入评论。
+
+后续候选方案：
+
+- 低维护优先：`Giscus`，基于 GitHub Discussions，不支持真正匿名评论。
+- 匿名评论优先：`Waline` 或 `Remark42`，需要额外维护评论服务端、数据库、审核、反垃圾和备份。
 
 ## 环境要求
 

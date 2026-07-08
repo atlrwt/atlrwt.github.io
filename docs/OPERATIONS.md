@@ -2,6 +2,21 @@
 
 This log records significant project operations for traceability.
 
+## 2026-07-08 09:31 CST
+
+- Operation: Documented comment system decision.
+- Changes:
+  - Updated `README.md` and `README.en.md` to defer comment system integration.
+  - Documented future comment candidates: `Giscus` for low-maintenance comments, `Waline` or `Remark42` for anonymous comments.
+  - Updated `CommentsPlaceholder.astro` wording without changing runtime behavior.
+- Decision:
+  - Do not enable comments for now.
+  - Reconsider after the blog has enough traffic and reader interaction data.
+- Verification:
+  - `git diff --check`
+  - `npm run check -- --minimumFailingSeverity error`
+  - `npm run build`
+
 ## 2026-07-07 16:42 CST
 
 - Operation: Fixed GitHub Actions Variables for Umami Cloud and redeployed.
